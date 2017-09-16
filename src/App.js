@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Loop from './reactGameKit/components/loop';
+import LoopCounter from './components/loop-counter';
 
 import logo from './logo.svg';
 import './App.css';
@@ -15,6 +16,7 @@ class App extends Component {
           </div>
           <div className="App-intro">
             To get started, edit <code>src/App.js</code> and save to reload.
+            <LoopCounter />
           </div>
         </div>
       </Loop>
