@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-//import LoopCounter from './components/loop-counter';
 import weedWizard from './state/reducers';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import InventoryContainer from './containers/inventory';
+import InventoryContainer from './containers/inventoryContainer';
 
 import { smokeWeed, decayHighness } from './state/actions';
 

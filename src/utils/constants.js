@@ -8,8 +8,8 @@ export const CONVERSIONS = {
 export const STRAINS = [
   {
     id: 0,
-    label: 'Schwag',
-    description: 'The schwiggitiest of schwag. Really not dank at all. Kinda gross, actually.',
+    label: `Schwag`,
+    description: `The schwiggitiest of schwag. Really not dank at all. Kinda gross, actually.`,
     prices: {
       g: 5,
       eighth: 15,
@@ -28,7 +28,7 @@ export const STRAINS = [
 export const TOOLS = [
   {
     id: 0,
-    label: 'Homemade Pipe',
+    label: `Homemade Pipe`,
     description: `There are many ways to make your own pipe if you don't have one ... But they never turn out that great.`,
     size: 1 // in bowls
   }
