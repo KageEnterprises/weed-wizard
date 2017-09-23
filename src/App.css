@@ -6,4 +6,5 @@
 
 .App-body {
   display: flex;
+  flex-wrap: wrap;
 }
