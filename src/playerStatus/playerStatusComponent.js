@@ -8,13 +8,23 @@ class PlayerStatusComponent extends React.Component {
   static propTypes = {
     weed: PropTypes.array,
     tools: PropTypes.array,
-    highness: PropTypes.number
+    highness: PropTypes.number,
+    weedRanOutNotification: PropTypes.func
   };
 
   constructor(props) {
     super(props);
 
     this.renderWeed = this.renderWeed.bind(this);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.weed.length < this.props.weed.length) {
+      const weedRanOut = this.props.weed.filter((weed) => {
+        return newProps.weed.map(newWeed => newWeed.id).indexOf(weed.id) === -1;
+      })[0];
+      this.props.weedRanOutNotification(weedRanOut.label);
+    }
   }
 
   renderWeed() {
@@ -34,7 +44,7 @@ class PlayerStatusComponent extends React.Component {
     });
     return (
       <div>
-        <p>Weed You Have</p>
+        <h3>Weed You Have</h3>
         {weeds}
       </div>
     );
@@ -54,7 +64,7 @@ class PlayerStatusComponent extends React.Component {
     });
     return (
       <div>
-        <p>Tools you Have</p>
+        <h3>Tools You Have</h3>
         {tools}
       </div>
     );

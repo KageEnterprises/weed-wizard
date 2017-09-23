@@ -6,6 +6,7 @@ export const CONVERSIONS = {
 };
 
 export const COME_DOWN_RATE = .0001; // per millisecond
+export const DEFAULT_NOTIFICATION_LIFE = 10000;
 
 export const STRAINS = [
   {

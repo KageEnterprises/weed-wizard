@@ -6,6 +6,7 @@ import { createStore } from 'redux';
 
 import PlayerActionsContainer from './playerActions/playerActionsContainer';
 import PlayerStatusContainer from './playerStatus/playerStatusContainer';
+import NotificationsContainer from './notifications/notificationsContainer';
 
 import { decayHighness } from './state/actions';
 
@@ -50,6 +51,7 @@ class App extends Component {
           <div className="App-body">
             <PlayerActionsContainer />
             <PlayerStatusContainer />
+            <NotificationsContainer />
           </div>
         </div>
       </Provider>

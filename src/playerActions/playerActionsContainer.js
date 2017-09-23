@@ -1,7 +1,10 @@
 import { connect } from 'react-redux';
 import PlayerActionsComponent from '../playerActions/playerActionsComponent';
 
-import { smokeWeed } from '../state/actions';
+import { smokeWeed, addNotification } from '../state/actions';
+
+import { getToolById } from '../utils/tool-utils';
+import { getStrainById } from '../utils/weed-utils';
 
 const mapStateToProps = state => {
   return {
@@ -12,7 +15,11 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onSmokeWeed: (strainId, toolId) => {
-      dispatch(smokeWeed(strainId, toolId));
+      const strain = getStrainById(strainId);
+      const tool = getToolById(toolId);
+
+      dispatch(smokeWeed(strain, tool));
+      dispatch(addNotification(`You smoked ${strain.label} out of ${tool.label}.`));
     }
   };
 };
