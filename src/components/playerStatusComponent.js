@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { getStrainById } from '../utils/weed-utils';
 import { getToolById } from '../utils/tool-utils';
 
-class InventoryComponent extends React.Component {
+class PlayerStatusComponent extends React.Component {
   static propTypes = {
     weed: PropTypes.array,
     tools: PropTypes.array,
@@ -74,4 +74,4 @@ class InventoryComponent extends React.Component {
   }
 }
 
-export default InventoryComponent;
+export default PlayerStatusComponent;
