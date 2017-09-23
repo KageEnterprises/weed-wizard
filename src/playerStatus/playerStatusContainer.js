@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import PlayerStatusComponent from '../components/playerStatusComponent';
+import PlayerStatusComponent from '../playerStatus/playerStatusComponent';
 
 const mapStateToProps = state => {
   const { weed, tools, highness } = state.player;

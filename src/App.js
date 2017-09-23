@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import weedWizard from './state/reducers';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import PlayerStatusContainer from './containers/playerStatusContainer';
+import PlayerStatusContainer from './playerStatus/playerStatusContainer';
 
 import { smokeWeed, decayHighness } from './state/actions';
 
@@ -45,9 +45,8 @@ class App extends Component {
             {/* <img src={logo} className="App-logo" alt="logo" /> */}
             <h2>Weed Wizard</h2>
           </div>
-          <div className="App-intro">
-            {/*<LoopCounter />*/}
-            <button onClick={() => { store.dispatch(smokeWeed(0, 0)); }}>Smoke Weed</button>
+          <button onClick={() => { store.dispatch(smokeWeed(0, 0)); }}>Smoke Weed</button>
+          <div className="App-body">
             <PlayerStatusContainer />
           </div>
         </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getStrainById } from '../utils/weed-utils';
 import { getToolById } from '../utils/tool-utils';
+import './playerStatus.css';
 
 class PlayerStatusComponent extends React.Component {
   static propTypes = {
@@ -65,7 +66,7 @@ class PlayerStatusComponent extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="playerStatus">
         {this.renderWeed()}
         {this.renderTools()}
         {this.renderHighness()}
