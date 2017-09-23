@@ -5,7 +5,7 @@ import { smokeWeed } from '../state/actions';
 
 const mapStateToProps = state => {
   return {
-    hasWeed: state.player.weed.length
+    hasWeed: state.player.weed.length > 0
   };
 };
 

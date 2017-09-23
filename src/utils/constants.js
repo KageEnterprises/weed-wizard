@@ -5,6 +5,8 @@ export const CONVERSIONS = {
   BOWL_TO_OZ: 0.00881849
 };
 
+export const COME_DOWN_RATE = .0001; // per millisecond
+
 export const STRAINS = [
   {
     id: 0,

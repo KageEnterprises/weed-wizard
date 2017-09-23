@@ -1,7 +1,10 @@
+import { combineReducers } from 'redux';
+
 import { SMOKE_WEED, DECAY_HIGHNESS } from './actions';
+
 import { getStrainById } from '../utils/weed-utils';
 import { getToolById } from '../utils/tool-utils';
-import { CONVERSIONS } from '../utils/constants';
+import { CONVERSIONS, COME_DOWN_RATE } from '../utils/constants';
 
 const initialState = {
   player: {
@@ -21,52 +24,46 @@ const initialState = {
   }
 };
 
-export default function weedWizard(state = initialState, action = null) {
-  function getHigh(strain) {
-    const myStrain = Object.assign({}, getStrainById(strain), state.player.weed.filter((weed) => {
-      return weed.id === strain;
-    })[0]);
+function getHigh(state = initialState.player, action = null) {
+  const weed = Object.assign(
+    {},
+    getStrainById(action.strainId),
+    state.weed.filter(strain => strain.id === action.strainId )[0]
+  );
+  const tool = getToolById(action.toolId);
+  let { highness } = state;
 
-    let { highness } = state.player;
-    if (myStrain.quantity > 0) {
-      highness += myStrain.highness;
-    }
-    return Math.min(highness, 10);
-  }
+  highness = Math.min(highness + weed.highness, 10);
+  weed.quantity = Math.max(weed.quantity - (tool.size * CONVERSIONS.BOWL_TO_OZ), 0);
 
-  function comeDown(highness, timeDelta) {
-    const rate = .0001; // per millisecond
+  return {
+    ...state,
+    weed: state.weed.map((strain) => {
+      if (strain.id === action.strainId) {
+        return weed;
+      }
+      return strain;
+    }).filter(strain => strain.quantity > 0),
+    highness
+  };
+}
 
-    return Math.max(highness - (rate * timeDelta), 0);
-  }
-
+function player(state = initialState.player, action = null) {
   switch (action.type) {
     case SMOKE_WEED:
-      const myStrain = getStrainById(action.strain);
-      const myTool = getToolById(action.tool);
+      return getHigh(state, action);
 
-      return Object.assign({}, state, {
-        player: {
-          ...state.player,
-          weed: state.player.weed.map((strain) => {
-            if (strain.id === myStrain.id) {
-              return Object.assign({}, strain, {
-                quantity: Math.max(strain.quantity - (myTool.size * CONVERSIONS.BOWL_TO_OZ), 0)
-              });
-            }
-            return strain;
-          }).filter(strain => strain.quantity > 0),
-          highness: getHigh(action.strain)
-        }
-      });
     case DECAY_HIGHNESS:
-      return Object.assign({}, state, {
-        player: {
-          ...state.player,
-          highness: comeDown(state.player.highness, action.timeDelta)
-        }
-      });
+      return {
+        ...state,
+        highness: Math.max(state.highness - (COME_DOWN_RATE * action.timeDelta), 0)
+      };
+
     default:
       return state;
   }
 }
+
+export default combineReducers({
+  player
+});
