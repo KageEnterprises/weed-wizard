@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getStrainById } from '../utils/weed-utils';
+import {
+  parseQuantity,
+  fixedTo1orRounded
+} from '../utils/number-utils';
 import { getToolById } from '../utils/tool-utils';
 import './playerStatus.css';
 
@@ -41,7 +45,9 @@ class PlayerStatusComponent extends React.Component {
             <i>{fullWeed.description}</i>
           </p>
           <p>
-            <span>Amount: {weed.quantity} ozs.</span>
+            <span>Amount:
+              {` ${parseQuantity(weed.quantity)} `}
+              ounce{weed.quantity > 1 ? 's' : ''}</span>
           </p>
         </div>
       );
@@ -80,9 +86,9 @@ class PlayerStatusComponent extends React.Component {
     );
   }
 
-  renderHighness() {
-    return <p>How High You Are: {this.props.highness}</p>;
-  }
+  renderHighness = () => (
+    <p>How High You Are: {fixedTo1orRounded(this.props.highness)}</p>
+  );
 
   render() {
     return (
