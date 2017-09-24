@@ -6,7 +6,8 @@ import {
   SMOKE_WEED,
   DECAY_HIGHNESS,
   UPDATE_NOTIFICATIONS,
-  ADD_NOTIFICATION
+  ADD_NOTIFICATION,
+  CHANGE_WEED_UOM
 } from './actions';
 
 import {
@@ -20,6 +21,7 @@ const initialPlayerState = {
     {
       id: 0,
       quantity: 0.125, // in ozs
+      uom: 'oz', // always saved in ozs
       selected: true
     }
   ],
@@ -33,6 +35,16 @@ const initialPlayerState = {
   highness: 0
 };
 
+const initialSettings = {
+  settingsUoM: 'oz' // unit of measurement
+};
+
+/**
+ * Reduce weed, increase highness.
+ * @param state
+ * @param action
+ * @returns {{weed: Array.<T>, highness: (number|*|highness)}}
+ */
 function getHigh(state = initialPlayerState, action = null) {
   const weed = Object.assign(
     {},
@@ -56,6 +68,12 @@ function getHigh(state = initialPlayerState, action = null) {
   };
 }
 
+/**
+ * Player action reducers
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 function player(state = initialPlayerState, action = null) {
   switch (action.type) {
     case SELECT_WEED:
@@ -94,6 +112,12 @@ function player(state = initialPlayerState, action = null) {
   }
 }
 
+/**
+ * Notification action reducers
+ * @param state
+ * @param action
+ * @returns {*}
+ */
 function notifications(state = [{
   message: 'Welcome to Weed Wizard!',
   life: DEFAULT_NOTIFICATION_LIFE,
@@ -121,7 +145,25 @@ function notifications(state = [{
   }
 }
 
+/**
+ * Settings reducers
+ * @param settings
+ * @param action
+ */
+function settings(settings = initialSettings, action = null) {
+  switch (action.type) {
+    case CHANGE_WEED_UOM:
+      return {
+        ...settings,
+        settingsUoM: action.uom
+      };
+    default:
+      return settings;
+  }
+}
+
 export default combineReducers({
   player,
-  notifications
+  notifications,
+  settings
 });

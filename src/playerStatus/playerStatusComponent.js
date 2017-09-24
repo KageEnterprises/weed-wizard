@@ -6,8 +6,11 @@ import {
   fixedTo1orRounded
 } from '../utils/number-utils';
 import { getToolById } from '../utils/tool-utils';
+import { getUomByName } from '../utils/misc-utils';
 import {
-  HIGHNESS_CAP
+  CONVERSIONS,
+  HIGHNESS_CAP,
+  WEED_UOMS
 } from '../utils/constants';
 
 import './playerStatus.css';
@@ -17,9 +20,11 @@ class PlayerStatusComponent extends React.Component {
     weed: PropTypes.array,
     tools: PropTypes.array,
     highness: PropTypes.number,
+    settingsUoM: PropTypes.string,
 
     selectWeed: PropTypes.func,
     selectTool: PropTypes.func,
+    onChangeSettingsUoM: PropTypes.func,
     weedRanOutNotification: PropTypes.func
   };
 
@@ -36,8 +41,16 @@ class PlayerStatusComponent extends React.Component {
   }
 
   renderWeed() {
+    const fullSettingsUoM = getUomByName(this.props.settingsUoM);
     const weeds = this.props.weed.map((weed, idx) => {
-      const fullWeed = getStrainById(weed.id);
+      const weedByStrain = getStrainById(weed.id);
+      const fullWeed = {
+        ...weed,
+        ...weedByStrain
+      };
+      const convertedQuantity = fullWeed.uom === fullSettingsUoM.name
+        ? fullWeed.quantity
+        : fullWeed.quantity * CONVERSIONS[`${fullWeed.uom.toUpperCase()}_TO_${fullSettingsUoM.name.toUpperCase()}`];
 
       return (
         <div
@@ -49,17 +62,39 @@ class PlayerStatusComponent extends React.Component {
             <i>{fullWeed.description}</i>
           </p>
           <p>
-            <span>Amount:
-              {` ${parseQuantity(weed.quantity)} `}
-              ounce{weed.quantity > 1 ? 's' : ''}</span>
+            <span>
+              Amount:
+              {` ${parseQuantity(weed, fullSettingsUoM.name)} `}
+              {`${fullSettingsUoM.label}${
+                convertedQuantity > 1
+                    ? 's'
+                    : ''
+                }`
+              }
+            </span>
           </p>
         </div>
       );
     });
+    const weedUomSelectors = WEED_UOMS.map((uom) => (
+      <span
+        key={uom.name}
+        className={`playerStatus__itemList__toggle__item ${
+          fullSettingsUoM.name === uom.name
+            ? 'playerStatus__itemList__toggle__item--selected'
+            : ''
+        }`}
+        onClick={() => { this.props.onChangeSettingsUoM(uom.name)}}>
+        {uom.label}s
+      </span>
+    ));
 
     return (
       <div className="playerStatus__itemList">
         <h3 className="playerStatus__itemList__header">Weed You Have</h3>
+        <p className="playerStatus__itemList__toggle">{`Show weed in `}
+          {weedUomSelectors}
+        </p>
         {weeds}
       </div>
     );

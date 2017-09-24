@@ -4,13 +4,15 @@ import PlayerStatusComponent from '../playerStatus/playerStatusComponent';
 import {
   selectWeed,
   selectTool,
-  addNotification
+  addNotification,
+  changeSettingsUoM
 } from '../state/actions';
 
 const mapStateToProps = state => {
   const { weed, tools, highness } = state.player;
+  const { settingsUoM } = state.settings;
 
-  return { weed, tools, highness };
+  return { weed, tools, highness, settingsUoM };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -21,6 +23,10 @@ const mapDispatchToProps = dispatch => {
 
     selectTool: (idx) => {
       dispatch(selectTool(idx));
+    },
+
+    onChangeSettingsUoM: (uom) => {
+      dispatch(changeSettingsUoM(uom));
     },
 
     weedRanOutNotification: (label) => {

@@ -1,7 +1,7 @@
 export const CONVERSIONS = {
-  OZ_TO_GRAM: 28.3495,
-  GRAM_TO_OZ: 0.035274,
-  BOWL_TO_GRAM: 0.25, // 0.25 - 0.35 for a small bowl
+  OZ_TO_G: 28.3495,
+  G_TO_OZ: 0.035274,
+  BOWL_TO_G: 0.25, // 0.25 - 0.35 for a small bowl
   BOWL_TO_OZ: 0.00881849
 };
 
@@ -35,5 +35,20 @@ export const TOOLS = [
     label: `Homemade Pipe`,
     description: `There are many ways to make your own pipe if you don't have one ... But they never turn out that great.`,
     size: 1 // in bowls
+  }
+];
+
+export const WEED_UOMS = [
+  {
+    id: 0,
+    name: 'oz',
+    label: 'ounce',
+    article: 'an'
+  },
+  {
+    id: 1,
+    name: 'g',
+    label: 'gram',
+    article: 'a'
   }
 ];

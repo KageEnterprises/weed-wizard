@@ -13,3 +13,27 @@
 .playerStatus__itemList__item--selected {
   background: #ccc;
 }
+
+.playerStatus__itemList__toggle__item {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.playerStatus__itemList__toggle__item:after {
+  content: ' / ';
+  cursor: text;
+  text-decoration: none;
+}
+
+.playerStatus__itemList__toggle__item:last-child:after {
+  content: none;
+}
+
+.playerStatus__itemList__toggle__item--selected {
+  font-weight: 600;
+}
+
+.playerStatus__itemList__toggle__item--selected:after {
+  font-weight: 400;
+}
+

@@ -6,6 +6,7 @@ export const SMOKE_WEED = 'SMOKE_WEED';
 export const DECAY_HIGHNESS = 'DECAY_HIGHNESS';
 export const UPDATE_NOTIFICATIONS = 'UPDATE_NOTIFICATIONS';
 export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
+export const CHANGE_WEED_UOM = 'CHANGE_WEED_UOM';
 
 export function selectWeed(index) {
   return {
@@ -47,5 +48,12 @@ export function addNotification(message, life = DEFAULT_NOTIFICATION_LIFE) {
     type: ADD_NOTIFICATION,
     message,
     life
+  };
+}
+
+export function changeSettingsUoM(uom) {
+  return {
+    type: CHANGE_WEED_UOM,
+    uom
   };
 }
