@@ -41,7 +41,7 @@ function getHigh(state = initialPlayerState, action = null) {
   );
   let { highness } = state;
 
-  highness = Math.min(highness + weed.highness, 10);
+  highness += weed.highness;
   weed.quantity = Math.max(weed.quantity - (action.tool.size * CONVERSIONS.BOWL_TO_OZ), 0);
 
   return {

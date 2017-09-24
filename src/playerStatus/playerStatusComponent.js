@@ -6,6 +6,10 @@ import {
   fixedTo1orRounded
 } from '../utils/number-utils';
 import { getToolById } from '../utils/tool-utils';
+import {
+  HIGHNESS_CAP
+} from '../utils/constants';
+
 import './playerStatus.css';
 
 class PlayerStatusComponent extends React.Component {
@@ -87,7 +91,7 @@ class PlayerStatusComponent extends React.Component {
   }
 
   renderHighness = () => (
-    <p>How High You Are: {fixedTo1orRounded(this.props.highness)}</p>
+    <p>How High You Are: {fixedTo1orRounded(Math.min(this.props.highness, HIGHNESS_CAP))}</p>
   );
 
   render() {
