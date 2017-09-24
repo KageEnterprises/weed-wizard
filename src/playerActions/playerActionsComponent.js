@@ -6,6 +6,9 @@ import './playerActions.css';
 class PlayerActionsComponent extends React.Component {
   static propTypes = {
     hasWeed: PropTypes.bool,
+    selectedWeed: PropTypes.object,
+    selectedTool: PropTypes.object,
+
     onSmokeWeed: PropTypes.func
   };
 
@@ -13,7 +16,9 @@ class PlayerActionsComponent extends React.Component {
     return (
       <div className="playerActions">
         {this.props.hasWeed
-          ? <button onClick={() => { this.props.onSmokeWeed(0, 0); }}>Smoke Weed</button>
+          ? <button onClick={() => {
+              this.props.onSmokeWeed(this.props.selectedWeed.id, this.props.selectedTool.id);
+            }}>Smoke Weed</button>
           : null}
       </div>
     );

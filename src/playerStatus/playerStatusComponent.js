@@ -9,20 +9,20 @@ class PlayerStatusComponent extends React.Component {
     weed: PropTypes.array,
     tools: PropTypes.array,
     highness: PropTypes.number,
+
+    selectWeed: PropTypes.func,
+    selectTool: PropTypes.func,
     weedRanOutNotification: PropTypes.func
   };
-
-  constructor(props) {
-    super(props);
-
-    this.renderWeed = this.renderWeed.bind(this);
-  }
 
   componentWillReceiveProps(newProps) {
     if (newProps.weed.length < this.props.weed.length) {
       const weedRanOut = this.props.weed.filter((weed) => {
         return newProps.weed.map(newWeed => newWeed.id).indexOf(weed.id) === -1;
       })[0];
+      if (weedRanOut.selected && newProps.weed.length) {
+        this.props.selectWeed(0);
+      }
       this.props.weedRanOutNotification(weedRanOut.label);
     }
   }
@@ -30,8 +30,12 @@ class PlayerStatusComponent extends React.Component {
   renderWeed() {
     const weeds = this.props.weed.map((weed, idx) => {
       const fullWeed = getStrainById(weed.id);
+
       return (
-        <div key={idx}>
+        <div
+          key={idx}
+          className={`playerStatus__itemList__item ${weed.selected ? 'playerStatus__itemList__item--selected' : ''}`}
+          onClick={() => { this.props.selectWeed(idx) }}>
           <p>
             <b>{fullWeed.label}:</b>
             <i>{fullWeed.description}</i>
@@ -42,9 +46,10 @@ class PlayerStatusComponent extends React.Component {
         </div>
       );
     });
+
     return (
-      <div>
-        <h3>Weed You Have</h3>
+      <div className="playerStatus__itemList">
+        <h3 className="playerStatus__itemList__header">Weed You Have</h3>
         {weeds}
       </div>
     );
@@ -53,8 +58,12 @@ class PlayerStatusComponent extends React.Component {
   renderTools() {
     const tools = this.props.tools.map((tool, idx) => {
       const fullTool = getToolById(tool.id);
+
       return (
-        <div key={idx}>
+        <div
+          key={idx}
+          className={`playerStatus__itemList__item ${tool.selected ? 'playerStatus__itemList__item--selected' : ''}`}
+          onClick={() => { this.props.selectTool(idx) }}>
           <p>
             <b>{fullTool.label}:</b>
             <i>{fullTool.description}</i>
@@ -62,9 +71,10 @@ class PlayerStatusComponent extends React.Component {
         </div>
       );
     });
+
     return (
-      <div>
-        <h3>Tools You Have</h3>
+      <div className="playerStatus__itemList">
+        <h3 className="playerStatus__itemList__header">Tools You Have</h3>
         {tools}
       </div>
     );

@@ -1,7 +1,11 @@
 import { connect } from 'react-redux';
 import PlayerStatusComponent from '../playerStatus/playerStatusComponent';
 
-import { addNotification } from '../state/actions';
+import {
+  selectWeed,
+  selectTool,
+  addNotification
+} from '../state/actions';
 
 const mapStateToProps = state => {
   const { weed, tools, highness } = state.player;
@@ -11,6 +15,14 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    selectWeed: (idx) => {
+      dispatch(selectWeed(idx));
+    },
+
+    selectTool: (idx) => {
+      dispatch(selectTool(idx));
+    },
+
     weedRanOutNotification: (label) => {
       dispatch(addNotification(`You ran out of ${label}!`));
     }

@@ -16,7 +16,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy:prod": "npm run build && scp -r build/* kage23@kage23.com:kage23.com/games/weed-wizard"
   },
   "homepage": "http://www.kage23.com/games/weed-wizard"
 }
