@@ -1,3 +1,7 @@
+div {
+  box-sizing: border-box;
+}
+
 .App-header {
   background-color: #222;
   padding: 20px;
@@ -7,4 +11,5 @@
 .App-body {
   display: flex;
   flex-wrap: wrap;
+  padding: 10px 20px;
 }

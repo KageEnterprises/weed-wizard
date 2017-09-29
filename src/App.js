@@ -52,6 +52,8 @@ class App extends Component {
             <PlayerActionsContainer />
             <PlayerStatusContainer />
             <NotificationsContainer />
+            <p>All weed names in this game are from or inspired by the <a href="http://weednamemaker.com/">Weed Name
+              Maker</a>.</p>
           </div>
         </div>
       </Provider>

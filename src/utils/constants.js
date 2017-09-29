@@ -22,7 +22,23 @@ export const TIERS = [
     },
     growthRate: 1,
     seedRate: 1,
-    harvestAmount: 1
+    harvestAmount: 1,
+    highness: 1
+  },
+  {
+    id: 1,
+    prices: {
+      g: 7,
+      eighth: 20,
+      quarter: 37,
+      half: 69,
+      oz: 125,
+      lb: 1900
+    },
+    growthRate: 1,
+    seedRate: 0.7,
+    harvestAmount: 1,
+    highness: 1.2
   }
 ];
 
@@ -31,8 +47,37 @@ export const STRAINS = [
     id: 0,
     tier: 0,
     label: `Schwag`,
-    description: `The schwiggitiest of schwag. Really not dank at all. Kinda gross, actually.`,
-    highness: 1
+    description: `The schwiggitiest of schwag. Really not dank at all. Kinda gross, actually.`
+  },
+  {
+    id: 1,
+    tier: 1,
+    label: `Dutchmen's Purps`,
+    description: `An indica-heavy strain favored by sailors and lighthouse keepers.`
+  },
+  {
+    id: 2,
+    tier: 1,
+    label: `Avalon Canna Cat`,
+    description: `The purrfect strain for pretending cardboard boxes are castles and sleeping 18 hours a day.`
+  },
+  {
+    id: 3,
+    tier: 1,
+    label: `Oregon Sorbet`,
+    description: `Light and refreshing. The spritzer of weeds.`
+  },
+  {
+    id: 4,
+    tier: 1,
+    label: `Goat Moonshine`,
+    description: `As the name implies, this strain was first discovered in a field of stoned goats. Beware the munchies; you might try to eat anything.`
+  },
+  {
+    id: 5,
+    tier: 1,
+    label: `Bob Mist`,
+    description: `Some weed gets you in touch with Jah. This weed gets you in touch with Bob.`
   }
 ];
 
