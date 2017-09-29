@@ -40,9 +40,11 @@ export default class Loop extends Component {
       width: '100%'
     };
 
+    const { style } = this.props;
+
     const styles = {
       ...defaultStyles,
-      ...this.props.style
+      ...style
     };
 
     return (

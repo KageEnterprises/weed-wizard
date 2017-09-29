@@ -2,7 +2,6 @@ import { CONVERSIONS } from './constants';
 import { getUomByName } from './misc-utils';
 
 export function parseQuantity(weed, uom = 'oz') {
-  const article = uom === 'oz' ? 'an' : 'a';
   const fullUom = getUomByName(uom);
   const convertedQuantity = weed.uom === uom
     ? weed.quantity

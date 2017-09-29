@@ -9,11 +9,9 @@ export const COME_DOWN_RATE = .0001; // per millisecond
 export const DEFAULT_NOTIFICATION_LIFE = 10000;
 export const HIGHNESS_CAP = 10;
 
-export const STRAINS = [
+export const TIERS = [
   {
     id: 0,
-    label: `Schwag`,
-    description: `The schwiggitiest of schwag. Really not dank at all. Kinda gross, actually.`,
     prices: {
       g: 5,
       eighth: 15,
@@ -22,10 +20,19 @@ export const STRAINS = [
       oz: 95,
       lb: 1450
     },
-    highness: 1, // I guess this is per bowl for now ... Still gotta work something out for this
     growthRate: 1,
     seedRate: 1,
     harvestAmount: 1
+  }
+];
+
+export const STRAINS = [
+  {
+    id: 0,
+    tier: 0,
+    label: `Schwag`,
+    description: `The schwiggitiest of schwag. Really not dank at all. Kinda gross, actually.`,
+    highness: 1
   }
 ];
 
