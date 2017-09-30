@@ -11,7 +11,7 @@ import NotificationsContainer from './notifications/notificationsContainer';
 import { decayHighness } from './state/actions';
 
 //import logo from './logo.svg';
-import './App.css';
+import styles from './App.css';
 
 let store = createStore(weedWizard);
 let lastUpdate = new Date();
@@ -43,12 +43,12 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div className="App">
-          <div className="App-header">
+        <div className={styles.app}>
+          <div className={styles.appHeader}>
             {/* <img src={logo} className="App-logo" alt="logo" /> */}
             <h2>Weed Wizard</h2>
           </div>
-          <div className="App-body">
+          <div className={styles.appBody}>
             <PlayerActionsContainer />
             <PlayerStatusContainer />
             <NotificationsContainer />

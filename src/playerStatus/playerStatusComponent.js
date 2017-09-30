@@ -13,7 +13,7 @@ import {
   WEED_UOMS
 } from '../utils/constants';
 
-import './playerStatus.css';
+import styles from './playerStatus.css';
 
 class PlayerStatusComponent extends React.Component {
   static propTypes = {
@@ -55,7 +55,7 @@ class PlayerStatusComponent extends React.Component {
       return (
         <div
           key={idx}
-          className={`playerStatus__itemList__item ${weed.selected ? 'playerStatus__itemList__item--selected' : ''}`}
+          className={weed.selected ? styles.itemListItemSelected : styles.itemListItem}
           onClick={() => { this.props.selectWeed(idx) }}>
           <p>
             <b>{fullWeed.label}:</b>
@@ -79,20 +79,16 @@ class PlayerStatusComponent extends React.Component {
     const weedUomSelectors = WEED_UOMS.map((uom) => (
       <span
         key={uom.name}
-        className={`playerStatus__itemList__toggle__item ${
-          fullSettingsUoM.name === uom.name
-            ? 'playerStatus__itemList__toggle__item--selected'
-            : ''
-        }`}
+        className={fullSettingsUoM.name === uom.name ? styles.weedUomLabelSelected : styles.weedUomLabel}
         onClick={() => { this.props.onChangeSettingsUoM(uom.name)}}>
         {uom.label}s
       </span>
     ));
 
     return (
-      <div className="playerStatus__itemList">
-        <h3 className="playerStatus__itemList__header">Weed You Have</h3>
-        <p className="playerStatus__itemList__toggle">{`Show weed in `}
+      <div className={styles.itemList}>
+        <h3 className={styles.itemListHeader}>Weed You Have</h3>
+        <p className={styles.itemListToggle}>{`Show weed in `}
           {weedUomSelectors}
         </p>
         {weeds}
@@ -107,7 +103,7 @@ class PlayerStatusComponent extends React.Component {
       return (
         <div
           key={idx}
-          className={`playerStatus__itemList__item ${tool.selected ? 'playerStatus__itemList__item--selected' : ''}`}
+          className={tool.selected ? styles.itemListItemSelected : styles.itemListItem}
           onClick={() => { this.props.selectTool(idx) }}>
           <p>
             <b>{fullTool.label}:</b>
@@ -118,8 +114,8 @@ class PlayerStatusComponent extends React.Component {
     });
 
     return (
-      <div className="playerStatus__itemList">
-        <h3 className="playerStatus__itemList__header">Tools You Have</h3>
+      <div className={styles.itemList}>
+        <h3 className={styles.itemListHeader}>Tools You Have</h3>
         {tools}
       </div>
     );
@@ -131,7 +127,7 @@ class PlayerStatusComponent extends React.Component {
 
   render() {
     return (
-      <div className="playerStatus">
+      <div className={styles.playerStatus}>
         {this.renderWeed()}
         {this.renderTools()}
         {this.renderHighness()}

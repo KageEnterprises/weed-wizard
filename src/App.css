@@ -1,14 +1,10 @@
-div {
-  box-sizing: border-box;
-}
-
-.App-header {
+.appHeader {
   background-color: #222;
   padding: 20px;
   color: white;
 }
 
-.App-body {
+.appBody {
   display: flex;
   flex-wrap: wrap;
   padding: 10px 20px;

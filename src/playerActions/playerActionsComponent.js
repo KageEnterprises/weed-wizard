@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './playerActions.css';
+import styles from './playerActions.css';
 
 class PlayerActionsComponent extends React.Component {
   static propTypes = {
@@ -14,7 +14,7 @@ class PlayerActionsComponent extends React.Component {
 
   render() {
     return (
-      <div className="playerActions">
+      <div className={styles.playerActions}>
         {this.props.hasWeed
           ? <button onClick={() => {
               this.props.onSmokeWeed(this.props.selectedWeed.id, this.props.selectedTool.id);

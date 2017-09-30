@@ -3,37 +3,39 @@
   padding-right: 10px;
 }
 
-.playerStatus__itemList__item {
+.itemListItem {
   box-sizing: border-box;
   border: 1px solid black;
   padding: 5px;
   margin-bottom: 5px;
 }
 
-.playerStatus__itemList__item--selected {
+.itemListItemSelected {
+  composes: itemListItem;
   background: #ccc;
 }
 
-.playerStatus__itemList__toggle__item {
+.weedUomLabel {
   text-decoration: underline;
   cursor: pointer;
 }
 
-.playerStatus__itemList__toggle__item:after {
+.weedUomLabel:after {
   content: ' / ';
   cursor: text;
   text-decoration: none;
 }
 
-.playerStatus__itemList__toggle__item:last-child:after {
+.weedUomLabel:last-child:after {
   content: none;
 }
 
-.playerStatus__itemList__toggle__item--selected {
+.weedUomLabelSelected {
+  composes: weedUomLabel;
   font-weight: 600;
 }
 
-.playerStatus__itemList__toggle__item--selected:after {
+.weedUomLabelSelected:after {
   font-weight: 400;
 }
 

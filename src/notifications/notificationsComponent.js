@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './notifications.css';
+import styles from './notifications.css';
 
 class NotificationsComponent extends React.Component {
   static propTypes = {
@@ -38,7 +38,7 @@ class NotificationsComponent extends React.Component {
 
   render() {
     return (
-      <div className="notifications">
+      <div className={styles.notifications}>
         <h3>Notifications</h3>
         {this.renderNotifications()}
       </div>
