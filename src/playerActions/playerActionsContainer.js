@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import PlayerActionsComponent from '../playerActions/playerActionsComponent';
+import PlayerActionsComponent from './playerActionsComponent';
 
 import { smokeWeed, addNotification } from '../state/actions';
 

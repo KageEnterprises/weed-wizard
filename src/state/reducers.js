@@ -146,6 +146,16 @@ function notifications(state = [{
 }
 
 /**
+ * Garden reducers
+ */
+function garden(state = [null], action = null) {
+  switch (action.type) {
+    default:
+      return state;
+  }
+}
+
+/**
  * Settings reducers
  * @param settings
  * @param action
@@ -165,5 +175,6 @@ function settings(settings = initialSettings, action = null) {
 export default combineReducers({
   player,
   notifications,
-  settings
+  settings,
+  garden
 });

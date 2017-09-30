@@ -1,0 +1,6 @@
+.gardenSquare {
+  flex-basis: 100px;
+  height: 100px;
+  border: 1px solid black;
+  margin: 0 10px 10px 0;
+}

@@ -27,7 +27,24 @@ class PlayerStatusComponent extends React.Component {
     selectWeed: PropTypes.func,
     selectTool: PropTypes.func,
     onChangeSettingsUoM: PropTypes.func,
-    weedRanOutNotification: PropTypes.func
+    weedRanOutNotification: PropTypes.func,
+    decayHighness: PropTypes.func
+  };
+
+  static contextTypes = {
+    loop: PropTypes.object
+  };
+
+  componentDidMount() {
+    this.context.loop.subscribe(this.loopStatusUpdate);
+  }
+
+  componentWillUnmount() {
+    this.context.loop.unsubscribe(this.loopStatusUpdate);
+  }
+
+  loopStatusUpdate = () => {
+    this.props.decayHighness();
   };
 
   componentWillReceiveProps(newProps) {

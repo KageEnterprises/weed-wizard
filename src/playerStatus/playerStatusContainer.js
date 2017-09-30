@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
-import PlayerStatusComponent from '../playerStatus/playerStatusComponent';
+import PlayerStatusComponent from './playerStatusComponent';
 
 import {
   selectWeed,
   selectTool,
   addNotification,
-  changeSettingsUoM
+  changeSettingsUoM,
+  decayHighness
 } from '../state/actions';
 
 const mapStateToProps = state => {
@@ -16,6 +17,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
+  let lastUpdate = new Date();
+
   return {
     selectWeed: (idx) => {
       dispatch(selectWeed(idx));
@@ -31,6 +34,17 @@ const mapDispatchToProps = dispatch => {
 
     weedRanOutNotification: (label) => {
       dispatch(addNotification(`You ran out of ${label}!`));
+    },
+
+    decayHighness: () => {
+      const now = new Date();
+      const timeDelta = now - lastUpdate;
+
+      if (timeDelta > 16) {
+        dispatch(decayHighness(timeDelta));
+
+        lastUpdate = new Date();
+      }
     }
   };
 };
