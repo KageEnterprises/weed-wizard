@@ -20,7 +20,7 @@ class ItemListItem extends React.Component {
           <b>{this.props.label}:</b>
           <i>{this.props.description}</i>
         </p>
-        <p>{this.props.children}</p>
+        <div>{this.props.children}</div>
       </div>
     );
   }

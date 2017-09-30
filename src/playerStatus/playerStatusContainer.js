@@ -4,7 +4,6 @@ import PlayerStatusComponent from './playerStatusComponent';
 import {
   selectWeed,
   selectTool,
-  addNotification,
   changeSettingsUoM,
   decayHighness
 } from '../state/actions';
@@ -30,10 +29,6 @@ const mapDispatchToProps = dispatch => {
 
     onChangeSettingsUoM: (uom) => {
       dispatch(changeSettingsUoM(uom));
-    },
-
-    weedRanOutNotification: (label) => {
-      dispatch(addNotification(`You ran out of ${label}!`));
     },
 
     decayHighness: () => {

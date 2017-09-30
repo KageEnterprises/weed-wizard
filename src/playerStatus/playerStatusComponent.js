@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ItemList from '../components/item-list';
-import ItemListItem from '../components/item-list-item';
-import { getStrainById } from '../utils/weed-utils';
+import ItemList from '../components/itemList';
+import ItemListItem from '../components/itemListItem';
+import { getStrainById } from '../utils/weedUtils';
 import {
   parseQuantity,
   fixedTo1orRounded
-} from '../utils/number-utils';
-import { getToolById } from '../utils/tool-utils';
-import { getUomByName } from '../utils/misc-utils';
+} from '../utils/numberUtils';
+import { getToolById } from '../utils/toolUtils';
+import { getUomByName } from '../utils/miscUtils';
 import {
   CONVERSIONS,
   HIGHNESS_CAP,
@@ -27,7 +27,6 @@ class PlayerStatusComponent extends React.Component {
     selectWeed: PropTypes.func,
     selectTool: PropTypes.func,
     onChangeSettingsUoM: PropTypes.func,
-    weedRanOutNotification: PropTypes.func,
     decayHighness: PropTypes.func
   };
 
@@ -47,50 +46,38 @@ class PlayerStatusComponent extends React.Component {
     this.props.decayHighness();
   };
 
-  componentWillReceiveProps(newProps) {
-    if (newProps.weed.length < this.props.weed.length) {
-      const weedRanOut = this.props.weed.filter((weed) => {
-        return newProps.weed.map(newWeed => newWeed.id).indexOf(weed.id) === -1;
-      })[0];
-      if (weedRanOut.selected && newProps.weed.length) {
-        this.props.selectWeed(0);
-      }
-      this.props.weedRanOutNotification(weedRanOut.label);
-    }
-  }
-
   renderWeed() {
     const fullSettingsUoM = getUomByName(this.props.settingsUoM);
-    const weeds = this.props.weed.map((weed, idx) => {
-      const weedByStrain = getStrainById(weed.id);
-      const fullWeed = {
-        ...weed,
-        ...weedByStrain
-      };
-      const convertedQuantity = fullWeed.uom === fullSettingsUoM.name
-        ? fullWeed.quantity
-        : fullWeed.quantity * CONVERSIONS[`${fullWeed.uom.toUpperCase()}_TO_${fullSettingsUoM.name.toUpperCase()}`];
+    const weeds = this.props.weed
+      .filter((strain) => strain.quantity || strain.seeds)
+      .map((weed, idx) => {
+        const weedByStrain = getStrainById(weed.id);
+        const fullWeed = {
+          ...weed,
+          ...weedByStrain
+        };
+        const convertedQuantity = fullWeed.uom === fullSettingsUoM.name
+          ? fullWeed.quantity
+          : fullWeed.quantity * CONVERSIONS[`${fullWeed.uom.toUpperCase()}_TO_${fullSettingsUoM.name.toUpperCase()}`];
 
-      return (
-        <ItemListItem
-          key={idx}
-          label={fullWeed.label}
-          description={fullWeed.description}
-          selected={weed.selected}
-          onClick={() => { this.props.selectWeed(idx) }}>
-          <span>
-            Amount:
-            {` ${parseQuantity(weed, fullSettingsUoM.name)} `}
-            {`${fullSettingsUoM.label}${
-              convertedQuantity > 1
-                ? 's'
-                : ''
-              }`
-            }
-            </span>
-        </ItemListItem>
-      );
-    });
+        return (
+          <ItemListItem
+            key={fullWeed.id}
+            label={fullWeed.label}
+            description={fullWeed.description}
+            selected={weed.selected}
+            onClick={() => { this.props.selectWeed(idx) }}>
+            <div className={styles.weedListItemContent}>
+              <p className={styles.weedListItemContentItem}>
+                <b>Amount:</b> {parseQuantity(weed, fullSettingsUoM)}
+              </p>
+              {fullWeed.seeds
+                ? <p className={styles.weedListItemContentItem}><b>Seeds</b>: {fullWeed.seeds}</p>
+                : null}
+            </div>
+          </ItemListItem>
+        );
+      });
     const weedUomSelectors = WEED_UOMS.map((uom) => (
       <span
         key={uom.name}

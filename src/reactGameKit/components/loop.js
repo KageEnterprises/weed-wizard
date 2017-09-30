@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import GameLoop from '../utils/game-loop';
+import GameLoop from '../utils/gameLoop';
 
 export default class Loop extends Component {
   static propTypes = {

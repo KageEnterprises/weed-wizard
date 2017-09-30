@@ -8,6 +8,7 @@ export const CONVERSIONS = {
 export const COME_DOWN_RATE = .0001; // per millisecond
 export const DEFAULT_NOTIFICATION_LIFE = 10000;
 export const HIGHNESS_CAP = 10;
+export const BASE_SEED_DROP_RATE = 0.2;
 
 export const TIERS = [
   {
@@ -21,7 +22,7 @@ export const TIERS = [
       lb: 1450
     },
     growthRate: 1,
-    seedRate: 1,
+    seedDropMod: 1,
     harvestAmount: 1,
     highness: 1
   },
@@ -36,7 +37,7 @@ export const TIERS = [
       lb: 1900
     },
     growthRate: 1,
-    seedRate: 0.7,
+    seedDropMod: 0.7,
     harvestAmount: 1,
     highness: 1.2
   }
@@ -95,12 +96,14 @@ export const WEED_UOMS = [
     id: 0,
     name: 'oz',
     label: 'ounce',
+    plural: 'ounces',
     article: 'an'
   },
   {
     id: 1,
     name: 'g',
     label: 'gram',
+    plural: 'grams',
     article: 'a'
   }
 ];

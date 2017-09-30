@@ -3,15 +3,16 @@ import { combineReducers } from 'redux';
 import {
   SELECT_WEED,
   SELECT_TOOL,
-  SMOKE_WEED,
+  INCREASE_HIGHNESS,
+  DECREASE_WEED_QUANTITY,
   DECAY_HIGHNESS,
   UPDATE_NOTIFICATIONS,
   ADD_NOTIFICATION,
-  CHANGE_WEED_UOM
+  CHANGE_WEED_UOM,
+  ADD_SEED
 } from './actions';
 
 import {
-  CONVERSIONS,
   COME_DOWN_RATE,
   DEFAULT_NOTIFICATION_LIFE
 } from '../utils/constants';
@@ -22,7 +23,8 @@ const initialPlayerState = {
       id: 0,
       quantity: 0.125, // in ozs
       uom: 'oz', // always saved in ozs
-      selected: true
+      selected: true,
+      seeds: 0
     }
   ],
   tools: [
@@ -38,35 +40,6 @@ const initialPlayerState = {
 const initialSettings = {
   settingsUoM: 'oz' // unit of measurement
 };
-
-/**
- * Reduce weed, increase highness.
- * @param state
- * @param action
- * @returns {{weed: Array.<T>, highness: (number|*|highness)}}
- */
-function getHigh(state = initialPlayerState, action = null) {
-  const weed = Object.assign(
-    {},
-    action.strain,
-    state.weed.filter(strain => strain.id === action.strain.id )[0]
-  );
-  let { highness } = state;
-
-  highness += weed.highness;
-  weed.quantity = Math.max(weed.quantity - (action.tool.size * CONVERSIONS.BOWL_TO_OZ), 0);
-
-  return {
-    ...state,
-    weed: state.weed.map((strain) => {
-      if (strain.id === action.strain.id) {
-        return weed;
-      }
-      return strain;
-    }).filter(strain => strain.quantity > 0),
-    highness
-  };
-}
 
 /**
  * Player action reducers
@@ -98,13 +71,44 @@ function player(state = initialPlayerState, action = null) {
         })
       };
 
-    case SMOKE_WEED:
-      return getHigh(state, action);
+    case INCREASE_HIGHNESS:
+      return {
+        ...state,
+        highness: state.highness + action.amount
+      };
+
+    case DECREASE_WEED_QUANTITY:
+      return {
+        ...state,
+        weed: state.weed.map((strain) => {
+          if (strain.id === action.strainId) {
+            return {
+              ...strain,
+              quantity: strain.quantity - action.amount
+            };
+          }
+          return strain;
+        })
+      };
 
     case DECAY_HIGHNESS:
       return {
         ...state,
         highness: Math.max(state.highness - (COME_DOWN_RATE * action.timeDelta), 0)
+      };
+
+    case ADD_SEED:
+      return {
+        ...state,
+        weed: state.weed.map((strain) => {
+          if (strain.id === action.strain.id) {
+            return {
+              ...strain,
+              seeds: strain.seeds + 1
+            };
+          }
+          return strain;
+        })
       };
 
     default:

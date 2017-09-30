@@ -30,7 +30,7 @@ class NotificationsComponent extends React.Component {
   renderNotifications() {
     return this.props.notifications.sort((a, b) => b.timeStamp - a.timeStamp)
       .map(notification => (
-        <div key={notification.timeStamp}>
+        <div key={`${notification.timeStamp}${notification.message}`}>
           <p>{notification.message}</p>
         </div>
       ));

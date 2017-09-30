@@ -7,3 +7,7 @@ body {
 div {
   box-sizing: border-box;
 }
+
+p {
+  margin-top: 0;
+}

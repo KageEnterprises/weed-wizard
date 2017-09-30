@@ -27,3 +27,12 @@
   font-weight: 400;
 }
 
+.weedListItemContent {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.weedListItemContentItem {
+  flex: 1 0 0;
+}
+
