@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ItemList from '../components/item-list';
+import ItemListItem from '../components/item-list-item';
 import { getStrainById } from '../utils/weed-utils';
 import {
   parseQuantity,
@@ -53,27 +55,23 @@ class PlayerStatusComponent extends React.Component {
         : fullWeed.quantity * CONVERSIONS[`${fullWeed.uom.toUpperCase()}_TO_${fullSettingsUoM.name.toUpperCase()}`];
 
       return (
-        <div
+        <ItemListItem
           key={idx}
-          className={weed.selected ? styles.itemListItemSelected : styles.itemListItem}
+          label={fullWeed.label}
+          description={fullWeed.description}
+          selected={weed.selected}
           onClick={() => { this.props.selectWeed(idx) }}>
-          <p>
-            <b>{fullWeed.label}:</b>
-            <i>{fullWeed.description}</i>
-          </p>
-          <p>
-            <span>
-              Amount:
-              {` ${parseQuantity(weed, fullSettingsUoM.name)} `}
-              {`${fullSettingsUoM.label}${
-                convertedQuantity > 1
-                    ? 's'
-                    : ''
-                }`
-              }
+          <span>
+            Amount:
+            {` ${parseQuantity(weed, fullSettingsUoM.name)} `}
+            {`${fullSettingsUoM.label}${
+              convertedQuantity > 1
+                ? 's'
+                : ''
+              }`
+            }
             </span>
-          </p>
-        </div>
+        </ItemListItem>
       );
     });
     const weedUomSelectors = WEED_UOMS.map((uom) => (
@@ -86,13 +84,15 @@ class PlayerStatusComponent extends React.Component {
     ));
 
     return (
-      <div className={styles.itemList}>
-        <h3 className={styles.itemListHeader}>Weed You Have</h3>
-        <p className={styles.itemListToggle}>{`Show weed in `}
-          {weedUomSelectors}
-        </p>
-        {weeds}
-      </div>
+      <ItemList
+        header={`Weed You Have`}
+        list={weeds}
+        before={(
+          <p>
+            {`Show weed in `}
+            {weedUomSelectors}
+          </p>
+        )} />
     );
   }
 
@@ -101,23 +101,19 @@ class PlayerStatusComponent extends React.Component {
       const fullTool = getToolById(tool.id);
 
       return (
-        <div
+        <ItemListItem
           key={idx}
-          className={tool.selected ? styles.itemListItemSelected : styles.itemListItem}
-          onClick={() => { this.props.selectTool(idx) }}>
-          <p>
-            <b>{fullTool.label}:</b>
-            <i>{fullTool.description}</i>
-          </p>
-        </div>
+          label={fullTool.label}
+          description={fullTool.description}
+          selected={tool.selected}
+          onClick={() => { this.props.selectTool(idx) }} />
       );
     });
 
     return (
-      <div className={styles.itemList}>
-        <h3 className={styles.itemListHeader}>Tools You Have</h3>
-        {tools}
-      </div>
+      <ItemList
+        header={`Tools You Have`}
+        list={tools} />
     );
   }
 

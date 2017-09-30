@@ -3,18 +3,6 @@
   padding-right: 10px;
 }
 
-.itemListItem {
-  box-sizing: border-box;
-  border: 1px solid black;
-  padding: 5px;
-  margin-bottom: 5px;
-}
-
-.itemListItemSelected {
-  composes: itemListItem;
-  background: #ccc;
-}
-
 .weedUomLabel {
   text-decoration: underline;
   cursor: pointer;

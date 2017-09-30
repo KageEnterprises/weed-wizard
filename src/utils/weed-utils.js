@@ -4,11 +4,11 @@ import {
 } from './constants';
 
 const addTierPropsToStrain = (strain) => {
-  const tierProps = getTierPropsById(strain.id);
+  const tierProps = getTierPropsById(strain.tier);
 
   return {
-    ...strain,
-    ...tierProps
+    ...tierProps,
+    ...strain
   };
 };
 
