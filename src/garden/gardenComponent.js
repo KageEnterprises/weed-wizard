@@ -8,7 +8,8 @@ class GardenComponent extends React.Component {
   static propTypes = {
     garden: PropTypes.array,
 
-    agePlant: PropTypes.func
+    agePlant: PropTypes.func,
+    harvestPlant: PropTypes.func
   };
 
   render() {
@@ -20,7 +21,8 @@ class GardenComponent extends React.Component {
             <GardenSquareContainer
               key={idx}
               plant={plant}
-              agePlant={this.props.agePlant} />
+              agePlant={this.props.agePlant}
+              harvestPlant={this.props.harvestPlant} />
           ))}
         </div>
       </div>

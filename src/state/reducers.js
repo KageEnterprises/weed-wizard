@@ -4,6 +4,7 @@ import {
   SELECT_WEED,
   SELECT_TOOL,
   INCREASE_HIGHNESS,
+  INCREASE_WEED_QUANTITY,
   DECREASE_WEED_QUANTITY,
   DECREASE_SEED_QUANTITY,
   DECAY_HIGHNESS,
@@ -12,7 +13,8 @@ import {
   CHANGE_WEED_UOM,
   ADD_SEED,
   PLANT_SEED,
-  AGE_PLANT
+  AGE_PLANT,
+  REMOVE_PLANT
 } from './actions';
 
 import {
@@ -20,24 +22,30 @@ import {
   DEFAULT_NOTIFICATION_LIFE
 } from '../utils/constants';
 
-const initialPlayerState = {
-  weed: [
-    {
-      id: 0,
-      quantity: 0.125, // in ozs
-      uom: 'oz', // always saved in ozs
-      selected: true,
-      seeds: 0
-    }
-  ],
-  tools: [
-    {
-      id: 0,
-      quantity: 1,
-      selected: true
-    }
-  ],
-  highness: 0
+import { getStrainById } from '../utils/weedUtils';
+
+const initialPlayerState = () => {
+  const strainProps = getStrainById(0);
+
+  return {
+    weed: [
+      {
+        ...strainProps,
+        id: 0,
+        quantity: 0.125, // in ozs
+        selected: true,
+        seeds: 0
+      }
+    ],
+    tools: [
+      {
+        id: 0,
+        quantity: 1,
+        selected: true
+      }
+    ],
+    highness: 0
+  };
 };
 
 const initialSettings = {
@@ -50,7 +58,7 @@ const initialSettings = {
  * @param action
  * @returns {*}
  */
-function player(state = initialPlayerState, action = null) {
+function player(state = initialPlayerState(), action = null) {
   switch (action.type) {
     case SELECT_WEED:
       return {
@@ -80,6 +88,34 @@ function player(state = initialPlayerState, action = null) {
         highness: state.highness + action.amount
       };
 
+    case INCREASE_WEED_QUANTITY:
+      if (state.weed.some(weed => weed.id === action.strainId)) {
+        return {
+          ...state,
+          weed: state.weed.map((weed) => {
+            if (weed.id === action.strainId) {
+              return {
+                ...weed,
+                quantity: weed.quantity + action.amount
+              };
+            }
+            return weed;
+          })
+        };
+      }
+      const strainProps = getStrainById(action.strainId);
+      const newWeed = {
+        ...strainProps,
+        quantity: action.amount
+      };
+      return {
+        ...state,
+        weed: [
+          ...state.weed,
+          newWeed
+        ]
+      };
+
     case DECREASE_WEED_QUANTITY:
       return {
         ...state,
@@ -91,7 +127,7 @@ function player(state = initialPlayerState, action = null) {
             };
           }
           return strain;
-        })
+        }).filter(strain => strain.quantity || strain.seeds)
       };
 
     case DECREASE_SEED_QUANTITY:
@@ -105,7 +141,7 @@ function player(state = initialPlayerState, action = null) {
             };
           }
           return strain;
-        })
+        }).filter(strain => strain.quantity || strain.seeds)
       };
 
     case DECAY_HIGHNESS:
@@ -121,7 +157,7 @@ function player(state = initialPlayerState, action = null) {
           if (strain.id === action.strain.id) {
             return {
               ...strain,
-              seeds: strain.seeds + 1
+              seeds: (strain.seeds || 0) + 1
             };
           }
           return strain;
@@ -173,30 +209,38 @@ function garden(state = [null], action = null) {
   switch (action.type) {
     case PLANT_SEED:
       const { strain } = action;
-      const firstEmptyGardenSpace = state.indexOf(null);
+      const firstEmptyGardenSquare = state.indexOf(null);
       return [
-        ...state.slice(0, firstEmptyGardenSpace),
+        ...state.slice(0, firstEmptyGardenSquare),
         {
           ...strain,
           plantAge: 0,
           plantAgeUpdated: new Date(),
-          gardenSpace: firstEmptyGardenSpace
+          gardenSquare: firstEmptyGardenSquare
         },
-        ...state.slice(firstEmptyGardenSpace + 1)
+        ...state.slice(firstEmptyGardenSquare + 1)
       ];
 
     case AGE_PLANT:
       const now = new Date();
-      const plantFromState = state[action.plant.gardenSpace];
+      const plantFromState = state[action.plant.gardenSquare];
       return [
-        ...state.slice(0, action.plant.gardenSpace),
+        ...state.slice(0, action.plant.gardenSquare),
         {
           ...plantFromState,
           plantAge: plantFromState.plantAge + (now - plantFromState.plantAgeUpdated),
           plantAgeUpdated: now
         },
-        ...state.slice(action.plant.gardenSpace + 1)
+        ...state.slice(action.plant.gardenSquare + 1)
       ];
+
+    case REMOVE_PLANT:
+      return state.map((gardenSquare, idx) => {
+        if (idx === action.gardenSquare) {
+          return null;
+        }
+        return gardenSquare;
+      });
 
     default:
       return state;

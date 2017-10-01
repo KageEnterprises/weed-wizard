@@ -10,6 +10,7 @@ export const DEFAULT_NOTIFICATION_LIFE = 10000;
 export const HIGHNESS_CAP = 10;
 export const BASE_SEED_DROP_RATE = 0.2;
 export const BASE_TIME_PER_PLANT_GROWTH_PHASE = 300000; // 5 minutes
+export const BASE_HARVEST_PER_PLANT = 12; // In ounces
 
 export const PLANT_GROWTH_PHASES = [
   'Seedling',
@@ -34,7 +35,8 @@ export const TIERS = [
     growthRate: 1,
     seedDropMod: 1,
     harvestAmount: 1,
-    highness: 1
+    highness: 1,
+    uom: 'oz'
   },
   {
     id: 1,
@@ -49,7 +51,8 @@ export const TIERS = [
     growthRate: 1,
     seedDropMod: 0.7,
     harvestAmount: 1,
-    highness: 1.2
+    highness: 1.2,
+    uom: 'oz'
   }
 ];
 

@@ -3,6 +3,7 @@ import { DEFAULT_NOTIFICATION_LIFE } from '../utils/constants';
 export const SELECT_WEED = 'SELECT_WEED';
 export const SELECT_TOOL = 'SELECT_TOOL';
 export const INCREASE_HIGHNESS = 'INCREASE_HIGHNESS';
+export const INCREASE_WEED_QUANTITY = 'INCREASE_WEED_QUANTITY';
 export const DECREASE_WEED_QUANTITY = 'DECREASE_WEED_QUANTITY';
 export const DECREASE_SEED_QUANTITY = 'DECREASE_SEED_QUANTITY';
 export const DECAY_HIGHNESS = 'DECAY_HIGHNESS';
@@ -12,6 +13,7 @@ export const CHANGE_WEED_UOM = 'CHANGE_WEED_UOM';
 export const ADD_SEED = 'ADD_SEED';
 export const PLANT_SEED = 'PLANT_SEED';
 export const AGE_PLANT = 'AGE_PLANT';
+export const REMOVE_PLANT = 'REMOVE_PLANT';
 
 export function selectWeed(index) {
   return {
@@ -30,6 +32,14 @@ export function selectTool(index) {
 export function increaseHighness(amount) {
   return {
     type: INCREASE_HIGHNESS,
+    amount
+  };
+}
+
+export function increaseWeedQuantity(strainId, amount) {
+  return {
+    type: INCREASE_WEED_QUANTITY,
+    strainId,
     amount
   };
 }
@@ -95,5 +105,12 @@ export function agePlant(plant) {
   return {
     type: AGE_PLANT,
     plant
+  };
+}
+
+export function removePlant(gardenSquare) {
+  return {
+    type: REMOVE_PLANT,
+    gardenSquare
   };
 }

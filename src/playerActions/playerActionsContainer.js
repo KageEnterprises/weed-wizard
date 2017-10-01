@@ -22,7 +22,7 @@ import {
 
 const mapStateToProps = state => {
   const selectedWeedFromState = state.player.weed.filter(weed => weed.selected)[0];
-  const selectedWeedProps = getStrainById(selectedWeedFromState.id);
+  const selectedWeedProps = selectedWeedFromState ? getStrainById(selectedWeedFromState.id) : null;
   const selectedWeed = {
     ...selectedWeedFromState,
     ...selectedWeedProps
@@ -35,12 +35,12 @@ const mapStateToProps = state => {
     ...selectedToolProps
   };
 
-  const emptyGardenSpace = state.garden.some(gardenSpace => gardenSpace === null);
+  const emptyGardenSquare = state.garden.some(gardenSquare => gardenSquare === null);
 
   return {
     selectedWeed,
     selectedTool,
-    emptyGardenSpace
+    emptyGardenSquare
   };
 };
 
@@ -85,8 +85,8 @@ const mapDispatchToProps = dispatch => {
         strainToPlant = getRandomTier1Strain();
       }
 
-      dispatch(decreaseSeedQuantity(strain.id));
       dispatch(plantSeed(strainToPlant));
+      dispatch(decreaseSeedQuantity(strain.id));
     }
   };
 };

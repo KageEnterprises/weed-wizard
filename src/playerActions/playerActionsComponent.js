@@ -8,7 +8,7 @@ class PlayerActionsComponent extends React.Component {
   static propTypes = {
     selectedWeed: PropTypes.object,
     selectedTool: PropTypes.object,
-    emptyGardenSpace: PropTypes.bool,
+    emptyGardenSquare: PropTypes.bool,
 
     onSmokeWeed: PropTypes.func,
     onPlantSeed: PropTypes.func
@@ -25,7 +25,7 @@ class PlayerActionsComponent extends React.Component {
               }}
               tooltip={`Click to smoke ${this.props.selectedWeed.label} from your ${this.props.selectedTool.label}.`} />
           : null}
-        {this.props.selectedWeed.seeds > 0 && this.props.emptyGardenSpace
+        {this.props.selectedWeed.seeds > 0 && this.props.emptyGardenSquare
           ? <Button
               label="Plant a Seed"
               onClick={() => {

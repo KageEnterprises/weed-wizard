@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { plantAgeFilter } from '../utils/weedUtils';
+import Button from '../components/button';
 
 import styles from './gardenSquare.css';
 
 class GardenSquare extends React.Component {
   static propTypes = {
     plant: PropTypes.object,
-    agePlant: PropTypes.func
+    agePlant: PropTypes.func,
+    harvestPlant: PropTypes.func
   };
 
   static contextTypes = {
@@ -29,14 +31,23 @@ class GardenSquare extends React.Component {
   };
 
   renderDetails = () => {
+    const plantAge = plantAgeFilter(this.props.plant.plantAge);
+
     return (
       <div>
         <p className={styles.strainLabel}>
           {this.props.plant.label}
         </p>
         <p>
-          <span>{plantAgeFilter(this.props.plant.plantAge)}</span>
+          <span>{plantAge}</span>
         </p>
+        {plantAge === 'Mature'
+          ? <Button
+              label='Harvest'
+              tooltip='Click to harvest this plant'
+              onClick={() => {this.props.harvestPlant(this.props.plant)}}
+            />
+          : null}
       </div>
     );
   };
