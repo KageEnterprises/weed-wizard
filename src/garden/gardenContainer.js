@@ -3,7 +3,8 @@ import GardenComponent from './gardenComponent';
 import {
   agePlant,
   increaseWeedQuantity,
-  removePlant
+  removePlant,
+  addNotification
 } from '../state/actions';
 import { getStrainById } from '../utils/weedUtils';
 import { BASE_HARVEST_PER_PLANT } from '../utils/constants';
@@ -25,6 +26,7 @@ const mapDispatchToProps = dispatch => {
       const quantity = BASE_HARVEST_PER_PLANT * strainProps.harvestAmount;
       dispatch(increaseWeedQuantity(plant.id, quantity));
       dispatch(removePlant(plant.gardenSquare));
+      dispatch(addNotification(`You harvested ${quantity} ounces of ${plant.label}!`));
     }
   };
 };

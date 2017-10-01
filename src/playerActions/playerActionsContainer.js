@@ -87,6 +87,7 @@ const mapDispatchToProps = dispatch => {
 
       dispatch(plantSeed(strainToPlant));
       dispatch(decreaseSeedQuantity(strain.id));
+      dispatch(addNotification(`You planted a ${strainToPlant.label} plant!`));
     }
   };
 };
