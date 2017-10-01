@@ -6,7 +6,9 @@ import styles from './garden.css';
 
 class GardenComponent extends React.Component {
   static propTypes = {
-    garden: PropTypes.array
+    garden: PropTypes.array,
+
+    agePlant: PropTypes.func
   };
 
   render() {
@@ -14,7 +16,12 @@ class GardenComponent extends React.Component {
       <div className={styles.garden}>
         <h3>Garden</h3>
         <div className={styles.field}>
-          {this.props.garden.map((plant, idx) => <GardenSquareContainer key={idx} plant={plant} />)}
+          {this.props.garden.map((plant, idx) => (
+            <GardenSquareContainer
+              key={idx}
+              plant={plant}
+              agePlant={this.props.agePlant} />
+          ))}
         </div>
       </div>
     );

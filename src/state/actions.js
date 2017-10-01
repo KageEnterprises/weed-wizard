@@ -11,6 +11,7 @@ export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
 export const CHANGE_WEED_UOM = 'CHANGE_WEED_UOM';
 export const ADD_SEED = 'ADD_SEED';
 export const PLANT_SEED = 'PLANT_SEED';
+export const AGE_PLANT = 'AGE_PLANT';
 
 export function selectWeed(index) {
   return {
@@ -87,5 +88,12 @@ export function plantSeed(strain) {
   return {
     type: PLANT_SEED,
     strain
+  };
+}
+
+export function agePlant(plant) {
+  return {
+    type: AGE_PLANT,
+    plant
   };
 }

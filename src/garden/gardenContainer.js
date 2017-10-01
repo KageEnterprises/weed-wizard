@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import GardenComponent from './gardenComponent';
+import { agePlant } from '../state/actions';
 
 const mapStateToProps = state => {
   return {
@@ -8,7 +9,11 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    agePlant: (plant) => {
+      dispatch(agePlant(plant));
+    }
+  };
 };
 
 const GardenContainer = connect(mapStateToProps, mapDispatchToProps)(GardenComponent);

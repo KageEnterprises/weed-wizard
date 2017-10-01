@@ -11,7 +11,8 @@ import {
   ADD_NOTIFICATION,
   CHANGE_WEED_UOM,
   ADD_SEED,
-  PLANT_SEED
+  PLANT_SEED,
+  AGE_PLANT
 } from './actions';
 
 import {
@@ -172,15 +173,29 @@ function garden(state = [null], action = null) {
   switch (action.type) {
     case PLANT_SEED:
       const { strain } = action;
-      let firstEmptyGardenSpace = state.indexOf(null);
+      const firstEmptyGardenSpace = state.indexOf(null);
       return [
         ...state.slice(0, firstEmptyGardenSpace),
         {
           ...strain,
           plantAge: 0,
-          plantAgeUpdated: new Date()
+          plantAgeUpdated: new Date(),
+          gardenSpace: firstEmptyGardenSpace
         },
         ...state.slice(firstEmptyGardenSpace + 1)
+      ];
+
+    case AGE_PLANT:
+      const now = new Date();
+      const plantFromState = state[action.plant.gardenSpace];
+      return [
+        ...state.slice(0, action.plant.gardenSpace),
+        {
+          ...plantFromState,
+          plantAge: plantFromState.plantAge + (now - plantFromState.plantAgeUpdated),
+          plantAgeUpdated: now
+        },
+        ...state.slice(action.plant.gardenSpace + 1)
       ];
 
     default:

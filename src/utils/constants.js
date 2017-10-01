@@ -9,6 +9,16 @@ export const COME_DOWN_RATE = .0001; // per millisecond
 export const DEFAULT_NOTIFICATION_LIFE = 10000;
 export const HIGHNESS_CAP = 10;
 export const BASE_SEED_DROP_RATE = 0.2;
+export const BASE_TIME_PER_PLANT_GROWTH_PHASE = 300000; // 5 minutes
+
+export const PLANT_GROWTH_PHASES = [
+  'Seedling',
+  'Vegetative',
+  'Budding',
+  'Flowering',
+  'Mature',
+  'Over-Mature'
+];
 
 export const TIERS = [
   {

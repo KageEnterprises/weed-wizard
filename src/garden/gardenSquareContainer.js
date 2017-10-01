@@ -5,12 +5,15 @@ import GardenSquareComponent from './gardenSquareComponent';
 
 class GardenSquareContainer extends React.Component {
   static propTypes = {
-    plant: PropTypes.object
+    plant: PropTypes.object,
+    agePlant: PropTypes.func
   };
 
   render() {
     return (
-      <GardenSquareComponent plant={this.props.plant} />
+      <GardenSquareComponent
+        plant={this.props.plant}
+        agePlant={this.props.agePlant} />
     );
   }
 }
