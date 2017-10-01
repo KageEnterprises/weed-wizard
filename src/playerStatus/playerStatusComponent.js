@@ -10,7 +10,6 @@ import {
 import { getToolById } from '../utils/toolUtils';
 import { getUomByName } from '../utils/miscUtils';
 import {
-  CONVERSIONS,
   HIGHNESS_CAP,
   WEED_UOMS
 } from '../utils/constants';
@@ -56,9 +55,6 @@ class PlayerStatusComponent extends React.Component {
           ...weed,
           ...weedByStrain
         };
-        const convertedQuantity = fullWeed.uom === fullSettingsUoM.name
-          ? fullWeed.quantity
-          : fullWeed.quantity * CONVERSIONS[`${fullWeed.uom.toUpperCase()}_TO_${fullSettingsUoM.name.toUpperCase()}`];
 
         return (
           <ItemListItem

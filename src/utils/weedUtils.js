@@ -2,6 +2,7 @@ import {
   TIERS,
   STRAINS
 } from './constants';
+import { randomArrayItem } from './miscUtils';
 
 const addTierPropsToStrain = (strain) => {
   const tierProps = getTierPropsById(strain.tier);
@@ -36,4 +37,10 @@ export const getTierPropsById = (id) => {
   });
 
   return res;
+};
+
+export const getRandomTier1Strain = () => {
+  const tier1Strains = STRAINS.filter(strain => strain.tier === 1);
+
+  return randomArrayItem(tier1Strains);
 };

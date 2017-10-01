@@ -4,11 +4,13 @@ export const SELECT_WEED = 'SELECT_WEED';
 export const SELECT_TOOL = 'SELECT_TOOL';
 export const INCREASE_HIGHNESS = 'INCREASE_HIGHNESS';
 export const DECREASE_WEED_QUANTITY = 'DECREASE_WEED_QUANTITY';
+export const DECREASE_SEED_QUANTITY = 'DECREASE_SEED_QUANTITY';
 export const DECAY_HIGHNESS = 'DECAY_HIGHNESS';
 export const UPDATE_NOTIFICATIONS = 'UPDATE_NOTIFICATIONS';
 export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
 export const CHANGE_WEED_UOM = 'CHANGE_WEED_UOM';
 export const ADD_SEED = 'ADD_SEED';
+export const PLANT_SEED = 'PLANT_SEED';
 
 export function selectWeed(index) {
   return {
@@ -36,6 +38,13 @@ export function decreaseWeedQuantity(strainId, amount) {
     type: DECREASE_WEED_QUANTITY,
     strainId,
     amount
+  };
+}
+
+export function decreaseSeedQuantity(strainId) {
+  return {
+    type: DECREASE_SEED_QUANTITY,
+    strainId
   };
 }
 
@@ -70,6 +79,13 @@ export function changeSettingsUoM(uom) {
 export function addSeed(strain) {
   return {
     type: ADD_SEED,
+    strain
+  };
+}
+
+export function plantSeed(strain) {
+  return {
+    type: PLANT_SEED,
     strain
   };
 }

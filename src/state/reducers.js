@@ -5,11 +5,13 @@ import {
   SELECT_TOOL,
   INCREASE_HIGHNESS,
   DECREASE_WEED_QUANTITY,
+  DECREASE_SEED_QUANTITY,
   DECAY_HIGHNESS,
   UPDATE_NOTIFICATIONS,
   ADD_NOTIFICATION,
   CHANGE_WEED_UOM,
-  ADD_SEED
+  ADD_SEED,
+  PLANT_SEED
 } from './actions';
 
 import {
@@ -91,6 +93,20 @@ function player(state = initialPlayerState, action = null) {
         })
       };
 
+    case DECREASE_SEED_QUANTITY:
+      return {
+        ...state,
+        weed: state.weed.map((strain) => {
+          if (strain.id === action.strainId) {
+            return {
+              ...strain,
+              seeds: Math.max(strain.seeds - 1, 0)
+            };
+          }
+          return strain;
+        })
+      };
+
     case DECAY_HIGHNESS:
       return {
         ...state,
@@ -154,6 +170,19 @@ function notifications(state = [{
  */
 function garden(state = [null], action = null) {
   switch (action.type) {
+    case PLANT_SEED:
+      const { strain } = action;
+      let firstEmptyGardenSpace = state.indexOf(null);
+      return [
+        ...state.slice(0, firstEmptyGardenSpace),
+        {
+          ...strain,
+          plantAge: 0,
+          plantAgeUpdated: new Date()
+        },
+        ...state.slice(firstEmptyGardenSpace + 1)
+      ];
+
     default:
       return state;
   }

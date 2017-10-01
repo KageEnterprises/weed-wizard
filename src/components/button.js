@@ -4,12 +4,15 @@ import PropTypes from 'prop-types';
 class Button extends React.Component {
   static propTypes = {
     label: PropTypes.string,
+    tooltip: PropTypes.string,
     onClick: PropTypes.func
   };
 
   render() {
     return (
-      <button onClick={this.props.onClick}>{this.props.label}</button>
+      <button
+        title={this.props.tooltip}
+        onClick={this.props.onClick}>{this.props.label}</button>
     );
   }
 }

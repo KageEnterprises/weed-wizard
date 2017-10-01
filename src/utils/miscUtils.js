@@ -11,3 +11,10 @@ export function getUomByName(name) {
 
   return res;
 }
+
+export function randomArrayItem(array) {
+  const length = array.length;
+  const randIdx = Math.floor(Math.random() * length);
+
+  return array[randIdx];
+}

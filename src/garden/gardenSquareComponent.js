@@ -8,11 +8,17 @@ class GardenSquare extends React.Component {
     plant: PropTypes.object
   };
 
+  renderDetails = () => {
+    return (
+      <b>{this.props.plant.label}</b>
+    );
+  };
+
   render() {
     return (
       <div className={styles.gardenSquare}>
         {this.props.plant
-          ? `Sort this out in a later ticket.`
+          ? this.renderDetails()
           : `This space is empty.`}
       </div>
     );
