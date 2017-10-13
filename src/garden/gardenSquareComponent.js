@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { plantAgeFilter } from '../utils/weedUtils';
 import Button from '../components/button';
 
 import styles from './gardenSquare.css';
@@ -8,8 +7,10 @@ import styles from './gardenSquare.css';
 class GardenSquare extends React.Component {
   static propTypes = {
     plant: PropTypes.object,
+
     agePlant: PropTypes.func,
-    harvestPlant: PropTypes.func
+    harvestPlant: PropTypes.func,
+    sendNotification: PropTypes.func
   };
 
   static contextTypes = {
@@ -18,6 +19,14 @@ class GardenSquare extends React.Component {
 
   componentDidMount() {
     this.context.loop.subscribe(this.loopUpdate);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (this.props.plant) {
+      if (newProps.plant.phase !== this.props.plant.phase) {
+        this.props.sendNotification(`Your ${this.props.plant.label} has become ${newProps.plant.phase}!`);
+      }
+    }
   }
 
   componentWillUnmount() {
@@ -31,21 +40,21 @@ class GardenSquare extends React.Component {
   };
 
   renderDetails = () => {
-    const plantAge = plantAgeFilter(this.props.plant.plantAge);
+    const { plant } = this.props;
 
     return (
       <div>
         <p className={styles.strainLabel}>
-          {this.props.plant.label}
+          {plant.label}
         </p>
         <p>
-          <span>{plantAge}</span>
+          <span>{plant.phase}</span>
         </p>
-        {plantAge === 'Mature'
+        {plant.phase === 'Mature'
           ? <Button
               label='Harvest'
               tooltip='Click to harvest this plant'
-              onClick={() => {this.props.harvestPlant(this.props.plant)}}
+              onClick={() => {this.props.harvestPlant(plant)}}
             />
           : null}
       </div>

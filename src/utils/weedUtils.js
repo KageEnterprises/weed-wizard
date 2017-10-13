@@ -1,8 +1,8 @@
 import {
-  TIERS,
-  STRAINS,
   BASE_TIME_PER_PLANT_GROWTH_PHASE,
-  PLANT_GROWTH_PHASES
+  PLANT_GROWTH_PHASES,
+  STRAINS,
+  TIERS
 } from './constants';
 import { randomArrayItem } from './miscUtils';
 
@@ -48,9 +48,7 @@ export const getRandomTier1Strain = () => {
 };
 
 export const plantAgeFilter = (age) => {
-  const growthPhaseIndex = Math.min(
+  return Math.min(
     PLANT_GROWTH_PHASES.length - 1,
     Math.floor(age / BASE_TIME_PER_PLANT_GROWTH_PHASE));
-
-  return PLANT_GROWTH_PHASES[growthPhaseIndex];
 };

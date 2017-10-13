@@ -27,6 +27,10 @@ const mapDispatchToProps = dispatch => {
       dispatch(increaseWeedQuantity(plant.id, quantity));
       dispatch(removePlant(plant.gardenSquare));
       dispatch(addNotification(`You harvested ${quantity} ounces of ${plant.label}!`));
+    },
+
+    sendNotification: (notification) => {
+      dispatch(addNotification(notification));
     }
   };
 };

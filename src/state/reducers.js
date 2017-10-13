@@ -19,10 +19,14 @@ import {
 
 import {
   COME_DOWN_RATE,
-  DEFAULT_NOTIFICATION_LIFE
+  DEFAULT_NOTIFICATION_LIFE,
+  PLANT_GROWTH_PHASES
 } from '../utils/constants';
 
-import { getStrainById } from '../utils/weedUtils';
+import {
+  getStrainById,
+  plantAgeFilter
+} from '../utils/weedUtils';
 
 const initialPlayerState = () => {
   const strainProps = getStrainById(0);
@@ -214,8 +218,10 @@ function garden(state = [null], action = null) {
         ...state.slice(0, firstEmptyGardenSquare),
         {
           ...strain,
-          plantAge: 0,
-          plantAgeUpdated: new Date(),
+          age: 0,
+          ageUpdated: new Date(),
+          phase: PLANT_GROWTH_PHASES[0],
+          phaseIndex: 0,
           gardenSquare: firstEmptyGardenSquare
         },
         ...state.slice(firstEmptyGardenSquare + 1)
@@ -224,13 +230,19 @@ function garden(state = [null], action = null) {
     case AGE_PLANT:
       const now = new Date();
       const plantFromState = state[action.plant.gardenSquare];
+      const newPlantAge = plantFromState.age + (now - plantFromState.ageUpdated);
+      const newPlantPhaseIndex = plantAgeFilter(newPlantAge);
+      const newPlant = {
+        ...plantFromState,
+        age: newPlantAge,
+        ageUpdated: now,
+        phase: PLANT_GROWTH_PHASES[newPlantPhaseIndex],
+        phaseIndex: newPlantPhaseIndex
+      };
+
       return [
         ...state.slice(0, action.plant.gardenSquare),
-        {
-          ...plantFromState,
-          plantAge: plantFromState.plantAge + (now - plantFromState.plantAgeUpdated),
-          plantAgeUpdated: now
-        },
+        newPlant,
         ...state.slice(action.plant.gardenSquare + 1)
       ];
 
