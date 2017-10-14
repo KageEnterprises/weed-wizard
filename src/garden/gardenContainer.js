@@ -35,6 +35,10 @@ const mapDispatchToProps = dispatch => {
       dispatch(addNotification(`You harvested ${quantity} ounces of ${plant.label}!`));
     },
 
+    removePlant: (plant) => {
+      dispatch(removePlant(plant.gardenSquare));
+    },
+
     sendNotification: (notification) => {
       dispatch(addNotification(notification));
     },

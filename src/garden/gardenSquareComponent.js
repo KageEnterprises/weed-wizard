@@ -11,6 +11,7 @@ class GardenSquare extends React.Component {
 
     agePlant: PropTypes.func,
     harvestPlant: PropTypes.func,
+    removePlant: PropTypes.func,
     sendNotification: PropTypes.func
   };
 
@@ -58,9 +59,13 @@ class GardenSquare extends React.Component {
           ? <Button
               label='Harvest'
               tooltip='Click to harvest this plant'
-              onClick={() => {this.props.harvestPlant(plant)}}
+              onClick={() => {this.props.harvestPlant(plant);}}
             />
           : null}
+        <Button
+          label='Remove plant'
+          tooltip='Click to remove this plant without harvesting it'
+          onClick={() => {this.props.removePlant(plant);}}/>
       </div>
     );
   };

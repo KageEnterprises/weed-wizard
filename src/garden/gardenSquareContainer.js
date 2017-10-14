@@ -10,6 +10,7 @@ class GardenSquareContainer extends React.Component {
 
     agePlant: PropTypes.func,
     harvestPlant: PropTypes.func,
+    removePlant: PropTypes.func,
     sendNotification: PropTypes.func
   };
 
