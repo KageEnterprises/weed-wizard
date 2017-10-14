@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
-import PlayerStatusComponent from './playerStatusComponent';
+import PlayerComponent from './playerComponent';
 
 import {
   selectWeed,
   selectTool,
-  changeSettingsUoM,
   decayHighness
-} from '../state/actions';
+} from './playerActions';
+
+import { changeSettingsUoM } from '../settings/settingsActions';
 
 const mapStateToProps = state => {
   const { weed, tools, highness } = state.player;
@@ -44,6 +45,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const PlayerStatusContainer = connect(mapStateToProps, mapDispatchToProps)(PlayerStatusComponent);
+const PlayerContainer = connect(mapStateToProps, mapDispatchToProps)(PlayerComponent);
 
-export default PlayerStatusContainer;
+export default PlayerContainer;

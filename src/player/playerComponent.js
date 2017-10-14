@@ -14,9 +14,9 @@ import {
   WEED_UOMS
 } from '../utils/constants';
 
-import styles from './playerStatus.css';
+import styles from './player.css';
 
-class PlayerStatusComponent extends React.Component {
+class PlayerComponent extends React.Component {
   static propTypes = {
     weed: PropTypes.array,
     tools: PropTypes.array,
@@ -123,7 +123,7 @@ class PlayerStatusComponent extends React.Component {
 
   render() {
     return (
-      <div className={styles.playerStatus}>
+      <div className={styles.player}>
         {this.renderWeed()}
         {this.renderTools()}
         {this.renderHighness()}
@@ -132,4 +132,4 @@ class PlayerStatusComponent extends React.Component {
   }
 }
 
-export default PlayerStatusComponent;
+export default PlayerComponent;

@@ -22,7 +22,7 @@ class GardenSquare extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (this.props.plant) {
+    if (this.props.plant && newProps.plant) {
       if (newProps.plant.phase !== this.props.plant.phase) {
         this.props.sendNotification(`Your ${this.props.plant.label} has become ${newProps.plant.phase}!`);
       }
