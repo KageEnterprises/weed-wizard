@@ -6,6 +6,7 @@ import styles from './gardenSquare.css';
 
 class GardenSquare extends React.Component {
   static propTypes = {
+    gameIsRunning: PropTypes.bool,
     plant: PropTypes.object,
 
     agePlant: PropTypes.func,
@@ -35,7 +36,10 @@ class GardenSquare extends React.Component {
 
   loopUpdate = () => {
     if (this.props.plant) {
-      this.props.agePlant(this.props.plant);
+      if (this.props.gameIsRunning) {
+        this.props.agePlant(this.props.plant);
+      }
+      this.props.updatePlant(this.props.plant);
     }
   };
 

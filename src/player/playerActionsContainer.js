@@ -1,5 +1,8 @@
 import { connect } from 'react-redux';
+import React from 'react';
 
+import { addAlert } from '../alerts/alertsActions';
+import { plantSeed } from '../garden/gardenActions';
 import { addNotification } from '../notifications/notificationsActions';
 import PlayerActionsComponent from './playerActionsComponent';
 import {
@@ -8,16 +11,15 @@ import {
   decreaseSeedQuantity,
   addSeed,
 } from './playerActions';
-import { plantSeed } from '../garden/gardenActions';
+import {
+  CONVERSIONS,
+  BASE_SEED_DROP_RATE
+} from '../utils/constants';
 import { getToolById } from '../utils/toolUtils';
 import {
   getStrainById,
   getRandomTier1Strain
 } from '../utils/weedUtils';
-import {
-  CONVERSIONS,
-  BASE_SEED_DROP_RATE
-} from '../utils/constants';
 
 const mapStateToProps = state => {
   const selectedWeedFromState = state.player.weed.filter(weed => weed.selected)[0];
@@ -87,6 +89,10 @@ const mapDispatchToProps = dispatch => {
       dispatch(plantSeed(strainToPlant));
       dispatch(decreaseSeedQuantity(strain.id));
       dispatch(addNotification(`You planted a ${strainToPlant.label} plant!`));
+    },
+
+    pauseGame: () => {
+      dispatch(addAlert('Game Is Paused', <div><p>Click Okay to unpause</p></div>));
     }
   };
 };

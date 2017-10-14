@@ -6,7 +6,7 @@
  *  {
  *    ...strain,            // Strain properties
  *    age: Number,          // Plant age in milliseconds
- *    ageUpdated: Date,     // Last time the age was updated
+ *    lastUpdated: Date,    // Last time the age was updated
  *    phase: String,        // Name of plant phase
  *    phaseIndex: Number,   // Index of plant phase
  *    gardenSquare: Number  // Index of plant location in garden state array

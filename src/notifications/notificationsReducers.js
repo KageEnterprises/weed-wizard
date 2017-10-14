@@ -1,26 +1,43 @@
 import {
   ADD_NOTIFICATION,
-  UPDATE_NOTIFICATIONS
+  AGE_NOTIFICATIONS,
+  NOTIFICATIONS_UPDATED
 } from './notificationsActions';
 import NotificationsState from './notificationsState';
 
 export default function notifications(state = NotificationsState, action = null) {
+  const now = new Date().valueOf();
+
   switch (action.type) {
-    case UPDATE_NOTIFICATIONS:
-      return state.filter((notification) => {
-        const notificationLife = notification.life;
-        return new Date().valueOf() - notification.timeStamp < notificationLife;
-      });
+    case AGE_NOTIFICATIONS:
+      return state
+        .map(notification => {
+          return {
+            ...notification,
+            life: notification.life - (now - notification.lastUpdated),
+            lastUpdated: now
+          };
+        })
+        .filter(notification => notification.life > 0);
 
     case ADD_NOTIFICATION:
       return [
         {
+          created: now,
           message: action.message,
           life: action.life,
-          timeStamp: new Date().valueOf()
+          lastUpdated: now
         },
         ...state
       ];
+
+    case NOTIFICATIONS_UPDATED:
+      return state.map(notification => {
+        return {
+          ...notification,
+          lastUpdated: now
+        };
+      });
 
     default:
       return state;

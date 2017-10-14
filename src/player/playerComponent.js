@@ -18,10 +18,11 @@ import styles from './player.css';
 
 class PlayerComponent extends React.Component {
   static propTypes = {
-    weed: PropTypes.array,
-    tools: PropTypes.array,
+    gameIsRunning: PropTypes.bool,
     highness: PropTypes.number,
     settingsUoM: PropTypes.string,
+    tools: PropTypes.array,
+    weed: PropTypes.array,
 
     selectWeed: PropTypes.func,
     selectTool: PropTypes.func,
@@ -42,7 +43,9 @@ class PlayerComponent extends React.Component {
   }
 
   loopStatusUpdate = () => {
-    this.props.decayHighness();
+    if (this.props.gameIsRunning) {
+      this.props.decayHighness();
+    }
   };
 
   renderWeed() {

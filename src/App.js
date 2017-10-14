@@ -5,6 +5,9 @@ import {
   createStore
 } from 'redux';
 
+import AlertsContainer from './alerts/alertsContainer';
+import alerts from './alerts/alertsReducers';
+import game from './game/gameReducers';
 import GardenContainer from './garden/gardenContainer';
 import garden from './garden/gardenReducers';
 import NotificationsContainer from './notifications/notificationsContainer';
@@ -18,6 +21,8 @@ import settings from './settings/settingsReducers';
 import styles from './App.css';
 
 let reducer = combineReducers({
+  alerts,
+  game,
   garden,
   notifications,
   player,
@@ -37,6 +42,7 @@ class App extends Component {
             <PlayerContainer />
             <GardenContainer />
             <NotificationsContainer />
+            <AlertsContainer />
             <p>All weed names in this game are from or inspired by the <a href="http://weednamemaker.com/">Weed Name
               Maker</a>.</p>
           </div>

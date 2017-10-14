@@ -1,6 +1,7 @@
 export const AGE_PLANT = 'AGE_PLANT';
 export const PLANT_SEED = 'PLANT_SEED';
 export const REMOVE_PLANT = 'REMOVE_PLANT';
+export const UPDATE_PLANT = 'UPDATE_PLANT';
 
 export function agePlant(plant) {
   return {
@@ -20,6 +21,13 @@ export function removePlant(gardenSquare) {
   return {
     type: REMOVE_PLANT,
     gardenSquare
+  };
+}
+
+export function updatePlant(plant) {
+  return {
+    type: UPDATE_PLANT,
+    plant
   };
 }
 

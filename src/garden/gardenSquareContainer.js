@@ -5,6 +5,7 @@ import GardenSquareComponent from './gardenSquareComponent';
 
 class GardenSquareContainer extends React.Component {
   static propTypes = {
+    gameIsRunning: PropTypes.bool,
     plant: PropTypes.object,
 
     agePlant: PropTypes.func,
@@ -15,10 +16,7 @@ class GardenSquareContainer extends React.Component {
   render() {
     return (
       <GardenSquareComponent
-        plant={this.props.plant}
-        agePlant={this.props.agePlant}
-        harvestPlant={this.props.harvestPlant}
-        sendNotification={this.props.sendNotification} />
+        {...this.props} />
     );
   }
 }

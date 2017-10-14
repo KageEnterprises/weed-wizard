@@ -11,7 +11,8 @@ class PlayerActionsComponent extends React.Component {
     emptyGardenSquare: PropTypes.bool,
 
     onSmokeWeed: PropTypes.func,
-    onPlantSeed: PropTypes.func
+    onPlantSeed: PropTypes.func,
+    pauseGame: PropTypes.func
   };
 
   render() {
@@ -33,6 +34,9 @@ class PlayerActionsComponent extends React.Component {
               }}
               tooltip={`Click to plant a ${this.props.selectedWeed.label} seed in your garden.`} />
           : null}
+        <Button
+          label="Pause Game"
+          onClick={() => { this.props.pauseGame(); }} />
       </div>
     );
   }

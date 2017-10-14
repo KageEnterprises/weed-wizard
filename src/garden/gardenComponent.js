@@ -6,6 +6,7 @@ import styles from './garden.css';
 
 class GardenComponent extends React.Component {
   static propTypes = {
+    gameIsRunning: PropTypes.bool,
     garden: PropTypes.array,
 
     agePlant: PropTypes.func,
@@ -22,9 +23,7 @@ class GardenComponent extends React.Component {
             <GardenSquareContainer
               key={idx}
               plant={plant}
-              agePlant={this.props.agePlant}
-              harvestPlant={this.props.harvestPlant}
-              sendNotification={this.props.sendNotification} />
+              {...this.props} />
           ))}
         </div>
       </div>

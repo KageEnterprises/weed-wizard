@@ -13,7 +13,13 @@ const mapStateToProps = state => {
   const { weed, tools, highness } = state.player;
   const { settingsUoM } = state.settings;
 
-  return { weed, tools, highness, settingsUoM };
+  return {
+    gameIsRunning: state.game.isRunning,
+    highness,
+    settingsUoM,
+    tools,
+    weed
+  };
 };
 
 const mapDispatchToProps = dispatch => {

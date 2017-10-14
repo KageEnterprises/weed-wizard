@@ -8,13 +8,15 @@ import {
 } from '../player/playerActions';
 import {
   agePlant,
-  removePlant
+  removePlant,
+  updatePlant
 } from './gardenActions';
 import { BASE_HARVEST_PER_PLANT } from '../utils/constants';
 import { getStrainById } from '../utils/weedUtils';
 
 const mapStateToProps = state => {
   return {
+    gameIsRunning: state.game.isRunning,
     garden: state.garden
   };
 };
@@ -35,6 +37,10 @@ const mapDispatchToProps = dispatch => {
 
     sendNotification: (notification) => {
       dispatch(addNotification(notification));
+    },
+
+    updatePlant: (plant) => {
+      dispatch(updatePlant(plant));
     }
   };
 };
