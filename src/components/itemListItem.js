@@ -17,10 +17,11 @@ class ItemListItem extends React.Component {
         className={this.props.selected ? styles.itemListItemSelected : styles.itemListItem}
         onClick={() => { this.props.onClick(); }}>
         <p>
-          <b>{this.props.label}:</b>
-          <i>{this.props.description}</i>
+          <b>{this.props.label}:</b> <i>{this.props.description}</i>
         </p>
-        <div>{this.props.children}</div>
+        {this.props.children ?
+          <div>{this.props.children}</div> :
+          null}
       </div>
     );
   }

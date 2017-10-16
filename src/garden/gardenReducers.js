@@ -15,7 +15,7 @@ export default function garden(state = GardenState, action = null) {
 
   switch (action.type) {
     case AGE_PLANT:
-      const newPlantAge = plantFromState.age + (now - plantFromState.lastUpdated);
+      const newPlantAge = plantFromState.age + action.ageDiff;
       const newPlantPhaseIndex = plantAgeFilter(newPlantAge);
       newPlant = {
         ...plantFromState,
@@ -24,6 +24,7 @@ export default function garden(state = GardenState, action = null) {
         phase: PLANT_GROWTH_PHASES[newPlantPhaseIndex],
         phaseIndex: newPlantPhaseIndex
       };
+
       return [
         ...state.slice(0, action.plant.gardenSquare),
         newPlant,
@@ -57,7 +58,7 @@ export default function garden(state = GardenState, action = null) {
     case UPDATE_PLANT:
       newPlant = {
         ...plantFromState,
-        lastUpdated: now
+        lastUpdated: action.lastUpdated
       };
       return [
         ...state.slice(0, action.plant.gardenSquare),

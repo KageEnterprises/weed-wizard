@@ -5,8 +5,11 @@ import Button     from '../components/button';
 
 import styles     from './gardenSquare.css';
 
+let lastLoop = new Date();
+
 class GardenSquare extends React.Component {
   static propTypes = {
+    activeSpells: PropTypes.array,
     gameIsRunning: PropTypes.bool,
     plant: PropTypes.object,
 
@@ -37,11 +40,22 @@ class GardenSquare extends React.Component {
   }
 
   loopUpdate = () => {
-    if (this.props.plant) {
-      if (this.props.gameIsRunning) {
-        this.props.agePlant(this.props.plant);
+    const now = new Date();
+
+    if (now - lastLoop > 16) {
+      if (this.props.plant) {
+        if (this.props.gameIsRunning) {
+          let ageDiff = now - this.props.plant.lastUpdated;
+          // Check for Grow Faster, Dammit! spell
+          if (this.props.activeSpells.indexOf(0) > -1) {
+            ageDiff *= 40;
+          }
+          console.log('ageDiff', ageDiff);
+          this.props.agePlant(this.props.plant, ageDiff);
+        }
+        this.props.updatePlant(this.props.plant, now);
       }
-      this.props.updatePlant(this.props.plant);
+      lastLoop = new Date();
     }
   };
 

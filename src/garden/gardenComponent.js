@@ -7,6 +7,7 @@ import styles                 from './garden.css';
 
 class GardenComponent extends React.Component {
   static propTypes = {
+    activeSpells: PropTypes.array,
     gameIsRunning: PropTypes.bool,
     garden: PropTypes.array,
 

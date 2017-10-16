@@ -9,6 +9,8 @@ import alerts                 from './alerts/alertsReducers';
 import game                   from './game/gameReducers';
 import GardenContainer        from './garden/gardenContainer';
 import garden                 from './garden/gardenReducers';
+import MagicSpellsContainer   from './magic/magicSpellsContainer';
+import magic                  from './magic/magicReducers';
 import NotificationsContainer from './notifications/notificationsContainer';
 import notifications          from './notifications/notificationsReducers';
 import PlayerActionsContainer from './player/playerActionsContainer';
@@ -24,6 +26,7 @@ let reducer = combineReducers({
   alerts,
   game,
   garden,
+  magic,
   notifications,
   player,
   settings
@@ -40,6 +43,7 @@ class App extends React.Component {
           <div className={styles.appBody}>
             <PlayerActionsContainer />
             <PlayerContainer />
+            <MagicSpellsContainer />
             <GardenContainer />
             <NotificationsContainer />
             <AlertsContainer />

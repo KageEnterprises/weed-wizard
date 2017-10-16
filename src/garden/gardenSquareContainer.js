@@ -5,6 +5,7 @@ import GardenSquareComponent  from './gardenSquareComponent';
 
 class GardenSquareContainer extends React.Component {
   static propTypes = {
+    activeSpells: PropTypes.array,
     gameIsRunning: PropTypes.bool,
     plant: PropTypes.object,
 

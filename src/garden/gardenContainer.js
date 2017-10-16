@@ -12,6 +12,9 @@ import { getStrainById }          from '../utils/weedUtils';
 
 const mapStateToProps = state => {
   return {
+    activeSpells: state.magic.spellsYouKnow
+      .filter(spell => spell.active)
+      .map(spell => spell.id),
     gameIsRunning: state.game.isRunning,
     garden: state.garden
   };
@@ -19,8 +22,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    agePlant: (plant) => {
-      dispatch(agePlant(plant));
+    agePlant: (plant, ageDiff) => {
+      dispatch(agePlant(plant, ageDiff));
     },
 
     harvestPlant: (plant) => {
@@ -39,8 +42,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(addNotification(notification));
     },
 
-    updatePlant: (plant) => {
-      dispatch(updatePlant(plant));
+    updatePlant: (plant, lastUpdated) => {
+      dispatch(updatePlant(plant, lastUpdated));
     }
   };
 };

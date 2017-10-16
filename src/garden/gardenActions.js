@@ -3,10 +3,11 @@ export const PLANT_SEED = 'PLANT_SEED';
 export const REMOVE_PLANT = 'REMOVE_PLANT';
 export const UPDATE_PLANT = 'UPDATE_PLANT';
 
-export function agePlant(plant) {
+export function agePlant(plant, ageDiff) {
   return {
     type: AGE_PLANT,
-    plant
+    plant,
+    ageDiff
   };
 }
 
@@ -24,10 +25,11 @@ export function removePlant(gardenSquare) {
   };
 }
 
-export function updatePlant(plant) {
+export function updatePlant(plant, lastUpdated) {
   return {
     type: UPDATE_PLANT,
-    plant
+    plant,
+    lastUpdated
   };
 }
 
