@@ -1,8 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import GardenSquareContainer from './gardenSquareContainer';
+import PropTypes              from 'prop-types';
+import React                  from 'react';
 
-import styles from './garden.css';
+import GardenSquareContainer  from './gardenSquareContainer';
+
+import styles                 from './garden.css';
 
 class GardenComponent extends React.Component {
   static propTypes = {
@@ -12,7 +13,8 @@ class GardenComponent extends React.Component {
     agePlant: PropTypes.func,
     harvestPlant: PropTypes.func,
     removePlant: PropTypes.func,
-    sendNotification: PropTypes.func
+    sendNotification: PropTypes.func,
+    updatePlant: PropTypes.func
   };
 
   render() {

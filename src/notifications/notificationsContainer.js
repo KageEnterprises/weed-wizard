@@ -1,10 +1,9 @@
-import { connect } from 'react-redux';
-import NotificationsComponent from './notificationsComponent';
+import { connect }            from 'react-redux';
 
 import {
   ageNotifications,
-  notificationsUpdated,
-} from './notificationsActions';
+  notificationsUpdated }      from './notificationsActions';
+import NotificationsComponent from './notificationsComponent';
 
 const mapStateToProps = state => {
   return {
@@ -18,6 +17,7 @@ const mapDispatchToProps = dispatch => {
     ageNotifications: () => {
       dispatch(ageNotifications());
     },
+
     notificationsUpdated: () => {
       dispatch(notificationsUpdated());
     }

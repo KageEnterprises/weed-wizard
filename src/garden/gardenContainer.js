@@ -1,18 +1,14 @@
-import { connect } from 'react-redux';
+import { connect }                from 'react-redux';
 
-import GardenComponent from './gardenComponent';
-
-import { addNotification } from '../notifications/notificationsActions';
-import {
-  increaseWeedQuantity,
-} from '../player/playerActions';
 import {
   agePlant,
   removePlant,
-  updatePlant
-} from './gardenActions';
+  updatePlant }                   from './gardenActions';
+import GardenComponent            from './gardenComponent';
+import { addNotification }        from '../notifications/notificationsActions';
+import { increaseWeedQuantity }   from '../player/playerActions';
 import { BASE_HARVEST_PER_PLANT } from '../utils/constants';
-import { getStrainById } from '../utils/weedUtils';
+import { getStrainById }          from '../utils/weedUtils';
 
 const mapStateToProps = state => {
   return {

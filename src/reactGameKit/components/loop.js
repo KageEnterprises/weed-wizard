@@ -1,8 +1,9 @@
 // This is 'borrowed' from react-game-kit but upgraded to not use React.PropTypes
 
+import PropTypes            from 'prop-types';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import GameLoop from '../utils/gameLoop';
+
+import GameLoop             from '../utils/gameLoop';
 
 export default class Loop extends Component {
   static propTypes = {

@@ -1,8 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Button from '../components/button';
+import PropTypes  from 'prop-types';
+import React      from 'react';
 
-import styles from './gardenSquare.css';
+import Button     from '../components/button';
+
+import styles     from './gardenSquare.css';
 
 class GardenSquare extends React.Component {
   static propTypes = {

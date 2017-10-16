@@ -4,9 +4,9 @@ const now = new Date().valueOf();
 
 const NotificationsState = [{
   created: now,
-  message: 'Welcome to Weed Wizard!',
+  lastUpdated: now,
   life: DEFAULT_NOTIFICATION_LIFE,
-  lastUpdated: now
+  message: 'Welcome to Weed Wizard!'
 }];
 
 export default NotificationsState;

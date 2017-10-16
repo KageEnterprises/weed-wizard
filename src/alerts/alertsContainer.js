@@ -1,16 +1,15 @@
-import { connect } from 'react-redux';
-import AlertsComponent from './alertsComponent';
+import { connect }      from 'react-redux';
 
 import { dismissAlert } from './alertsActions';
+import AlertsComponent  from './alertsComponent';
 import {
   pauseGame,
-  resumeGame
-} from '../game/gameActions';
+  resumeGame }          from '../game/gameActions';
 
 const mapStateToProps = state => {
   return {
-    header: state.alerts.header,
     content: state.alerts.content,
+    header: state.alerts.header,
     isOpen: state.alerts.isOpen
   };
 };

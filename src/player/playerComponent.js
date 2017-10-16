@@ -1,20 +1,19 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import ItemList from '../components/itemList';
-import ItemListItem from '../components/itemListItem';
-import { getStrainById } from '../utils/weedUtils';
-import {
-  parseQuantity,
-  fixedTo1orRounded
-} from '../utils/numberUtils';
-import { getToolById } from '../utils/toolUtils';
-import { getUomByName } from '../utils/miscUtils';
+import React from 'react';
+
+import ItemList           from '../components/itemList';
+import ItemListItem       from '../components/itemListItem';
 import {
   HIGHNESS_CAP,
-  WEED_UOMS
-} from '../utils/constants';
+  WEED_UOMS }             from '../utils/constants';
+import { getUomByName }   from '../utils/miscUtils';
+import {
+  fixedTo1orRounded,
+  parseQuantity }         from '../utils/numberUtils';
+import { getToolById }    from '../utils/toolUtils';
+import { getStrainById }  from '../utils/weedUtils';
 
-import styles from './player.css';
+import styles             from './player.css';
 
 class PlayerComponent extends React.Component {
   static propTypes = {
@@ -24,10 +23,10 @@ class PlayerComponent extends React.Component {
     tools: PropTypes.array,
     weed: PropTypes.array,
 
-    selectWeed: PropTypes.func,
-    selectTool: PropTypes.func,
+    decayHighness: PropTypes.func,
     onChangeSettingsUoM: PropTypes.func,
-    decayHighness: PropTypes.func
+    selectTool: PropTypes.func,
+    selectWeed: PropTypes.func
   };
 
   static contextTypes = {

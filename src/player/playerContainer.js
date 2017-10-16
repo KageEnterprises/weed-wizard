@@ -1,16 +1,17 @@
-import { connect } from 'react-redux';
-import PlayerComponent from './playerComponent';
+import { connect }            from 'react-redux';
 
 import {
-  selectWeed,
+  decayHighness,
   selectTool,
-  decayHighness
-} from './playerActions';
-
-import { changeSettingsUoM } from '../settings/settingsActions';
+  selectWeed }                from './playerActions';
+import PlayerComponent        from './playerComponent';
+import { changeSettingsUoM }  from '../settings/settingsActions';
 
 const mapStateToProps = state => {
-  const { weed, tools, highness } = state.player;
+  const {
+    highness,
+    tools,
+    weed } = state.player;
   const { settingsUoM } = state.settings;
 
   return {
@@ -26,18 +27,6 @@ const mapDispatchToProps = dispatch => {
   let lastUpdate = new Date();
 
   return {
-    selectWeed: (idx) => {
-      dispatch(selectWeed(idx));
-    },
-
-    selectTool: (idx) => {
-      dispatch(selectTool(idx));
-    },
-
-    onChangeSettingsUoM: (uom) => {
-      dispatch(changeSettingsUoM(uom));
-    },
-
     decayHighness: () => {
       const now = new Date();
       const timeDelta = now - lastUpdate;
@@ -47,6 +36,18 @@ const mapDispatchToProps = dispatch => {
 
         lastUpdate = new Date();
       }
+    },
+
+    onChangeSettingsUoM: (uom) => {
+      dispatch(changeSettingsUoM(uom));
+    },
+
+    selectTool: (idx) => {
+      dispatch(selectTool(idx));
+    },
+
+    selectWeed: (idx) => {
+      dispatch(selectWeed(idx));
     }
   };
 };

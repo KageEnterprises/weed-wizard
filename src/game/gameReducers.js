@@ -1,8 +1,7 @@
 import {
   PAUSE_GAME,
-  RESUME_GAME
-} from './gameActions';
-import GameState from './gameState';
+  RESUME_GAME }   from './gameActions';
+import GameState  from './gameState';
 
 export default function game(state = GameState, action = null) {
   switch (action.type) {
@@ -17,6 +16,7 @@ export default function game(state = GameState, action = null) {
         ...state,
         isRunning: true
       };
+
     default:
       return state;
   }

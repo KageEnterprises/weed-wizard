@@ -4,6 +4,14 @@ const initialPlayerState = () => {
   const strainProps = getStrainById(0);
 
   return {
+    highness: 0,
+    tools: [
+      {
+        id: 0,
+        quantity: 1,
+        selected: true
+      }
+    ],
     weed: [
       {
         ...strainProps,
@@ -12,15 +20,7 @@ const initialPlayerState = () => {
         selected: true,
         seeds: 0
       }
-    ],
-    tools: [
-      {
-        id: 0,
-        quantity: 1,
-        selected: true
-      }
-    ],
-    highness: 0
+    ]
   };
 };
 

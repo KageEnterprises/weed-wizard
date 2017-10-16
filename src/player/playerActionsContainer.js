@@ -1,25 +1,22 @@
-import { connect } from 'react-redux';
-import React from 'react';
+import React                  from 'react';
+import { connect }            from 'react-redux';
 
-import { addAlert } from '../alerts/alertsActions';
-import { plantSeed } from '../garden/gardenActions';
-import { addNotification } from '../notifications/notificationsActions';
+import { addAlert }           from '../alerts/alertsActions';
+import { plantSeed }          from '../garden/gardenActions';
+import { addNotification }    from '../notifications/notificationsActions';
+import {
+  addSeed,
+  decreaseSeedQuantity,
+  decreaseWeedQuantity,
+  increaseHighness }          from './playerActions';
 import PlayerActionsComponent from './playerActionsComponent';
 import {
-  increaseHighness,
-  decreaseWeedQuantity,
-  decreaseSeedQuantity,
-  addSeed,
-} from './playerActions';
+  BASE_SEED_DROP_RATE,
+  CONVERSIONS }               from '../utils/constants';
+import { getToolById }        from '../utils/toolUtils';
 import {
-  CONVERSIONS,
-  BASE_SEED_DROP_RATE
-} from '../utils/constants';
-import { getToolById } from '../utils/toolUtils';
-import {
-  getStrainById,
-  getRandomTier1Strain
-} from '../utils/weedUtils';
+  getRandomTier1Strain,
+  getStrainById }             from '../utils/weedUtils';
 
 const mapStateToProps = state => {
   const selectedWeedFromState = state.player.weed.filter(weed => weed.selected)[0];
@@ -39,14 +36,26 @@ const mapStateToProps = state => {
   const emptyGardenSquare = state.garden.some(gardenSquare => gardenSquare === null);
 
   return {
-    selectedWeed,
+    emptyGardenSquare,
     selectedTool,
-    emptyGardenSquare
+    selectedWeed
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    onPlantSeed: (strain) => {
+      let strainToPlant = strain;
+
+      if (strainToPlant.id === 0) {
+        strainToPlant = getRandomTier1Strain();
+      }
+
+      dispatch(plantSeed(strainToPlant));
+      dispatch(decreaseSeedQuantity(strain.id));
+      dispatch(addNotification(`You planted a ${strainToPlant.label} plant!`));
+    },
+
     onSmokeWeed: (strain, tool) => {
       const strainProps = getStrainById(strain.id);
       const toolProps = getToolById(tool.id);
@@ -77,18 +86,6 @@ const mapDispatchToProps = dispatch => {
       if (fullStrain.quantity - amountToSmoke <= 0) {
         dispatch(addNotification(`You ran out of ${fullStrain.label}!`));
       }
-    },
-
-    onPlantSeed: (strain) => {
-      let strainToPlant = strain;
-
-      if (strainToPlant.id === 0) {
-        strainToPlant = getRandomTier1Strain();
-      }
-
-      dispatch(plantSeed(strainToPlant));
-      dispatch(decreaseSeedQuantity(strain.id));
-      dispatch(addNotification(`You planted a ${strainToPlant.label} plant!`));
     },
 
     pauseGame: () => {

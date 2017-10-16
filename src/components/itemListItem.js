@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes  from 'prop-types';
+import React      from 'react';
 
-import styles from './components.css';
+import styles     from './components.css';
 
 class ItemListItem extends React.Component {
   static propTypes = {
-    label: PropTypes.string,
     description: PropTypes.string,
-    selected: PropTypes.bool,
-    onClick: PropTypes.func
+    label: PropTypes.string,
+    onClick: PropTypes.func,
+    selected: PropTypes.bool
   };
 
   render() {

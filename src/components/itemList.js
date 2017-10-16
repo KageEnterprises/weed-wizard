@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes  from 'prop-types';
+import React      from 'react';
 
-import styles from './components.css';
+import styles     from './components.css';
 
 class ItemList extends React.Component {
   static propTypes = {
-    header: PropTypes.string,
-    list: PropTypes.array,
+    after: PropTypes.node,
     before: PropTypes.node,
-    after: PropTypes.node
+    header: PropTypes.string,
+    list: PropTypes.array
   };
 
   render() {

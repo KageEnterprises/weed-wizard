@@ -1,5 +1,5 @@
-import { CHANGE_WEED_UOM } from './settingsActions';
-import SettingsState from './settingsState';
+import { CHANGE_WEED_UOM }  from './settingsActions';
+import SettingsState        from './settingsState';
 
 export default function settings(settings = SettingsState, action = null) {
   switch (action.type) {
@@ -8,6 +8,7 @@ export default function settings(settings = SettingsState, action = null) {
         ...settings,
         settingsUoM: action.uom
       };
+
     default:
       return settings;
   }

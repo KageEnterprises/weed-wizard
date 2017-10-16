@@ -2,9 +2,8 @@ import {
   BASE_TIME_PER_PLANT_GROWTH_PHASE,
   PLANT_GROWTH_PHASES,
   STRAINS,
-  TIERS
-} from './constants';
-import { randomArrayItem } from './miscUtils';
+  TIERS }                   from './constants';
+import { randomArrayItem }  from './miscUtils';
 
 const addTierPropsToStrain = (strain) => {
   const tierProps = getTierPropsById(strain.tier);
@@ -13,6 +12,12 @@ const addTierPropsToStrain = (strain) => {
     ...tierProps,
     ...strain
   };
+};
+
+export const getRandomTier1Strain = () => {
+  const tier1Strains = STRAINS.filter(strain => strain.tier === 1);
+
+  return randomArrayItem(tier1Strains);
 };
 
 export const getStrainById = (id) => {
@@ -39,12 +44,6 @@ export const getTierPropsById = (id) => {
   });
 
   return res;
-};
-
-export const getRandomTier1Strain = () => {
-  const tier1Strains = STRAINS.filter(strain => strain.tier === 1);
-
-  return randomArrayItem(tier1Strains);
 };
 
 export const plantAgeFilter = (age) => {

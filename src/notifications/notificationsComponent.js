@@ -1,12 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes  from 'prop-types';
+import React      from 'react';
 
-import styles from './notifications.css';
+import styles     from './notifications.css';
 
 class NotificationsComponent extends React.Component {
   static propTypes = {
     gameIsRunning: PropTypes.bool,
     notifications: PropTypes.array,
+
     ageNotifications: PropTypes.func,
     notificationsUpdated: PropTypes.func
   };

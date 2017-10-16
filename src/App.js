@@ -1,24 +1,24 @@
-import React, { Component } from 'react';
-import { Provider } from 'react-redux';
+import React from 'react';
+import { Provider }           from 'react-redux';
 import {
   combineReducers,
-  createStore
-} from 'redux';
+  createStore }               from 'redux';
 
-import AlertsContainer from './alerts/alertsContainer';
-import alerts from './alerts/alertsReducers';
-import game from './game/gameReducers';
-import GardenContainer from './garden/gardenContainer';
-import garden from './garden/gardenReducers';
+import AlertsContainer        from './alerts/alertsContainer';
+import alerts                 from './alerts/alertsReducers';
+import game                   from './game/gameReducers';
+import GardenContainer        from './garden/gardenContainer';
+import garden                 from './garden/gardenReducers';
 import NotificationsContainer from './notifications/notificationsContainer';
-import notifications from './notifications/notificationsReducers';
+import notifications          from './notifications/notificationsReducers';
 import PlayerActionsContainer from './player/playerActionsContainer';
-import PlayerContainer from './player/playerContainer';
-import player from './player/playerReducers';
-import settings from './settings/settingsReducers';
+import PlayerContainer        from './player/playerContainer';
+import player                 from './player/playerReducers';
+import settings               from './settings/settingsReducers';
 
-//import logo from './logo.svg';
-import styles from './App.css';
+//import logo                 from './logo.svg';
+
+import styles                 from './App.css';
 
 let reducer = combineReducers({
   alerts,
@@ -31,7 +31,7 @@ let reducer = combineReducers({
 
 let store = createStore(reducer);
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <Provider store={store}>

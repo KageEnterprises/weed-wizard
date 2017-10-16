@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes  from 'prop-types';
+import React      from 'react';
 
 class Button extends React.Component {
   static propTypes = {
     label: PropTypes.string,
-    tooltip: PropTypes.string,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    tooltip: PropTypes.string
   };
 
   render() {

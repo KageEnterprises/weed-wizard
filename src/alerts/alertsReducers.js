@@ -1,9 +1,7 @@
 import {
   ADD_ALERT,
-  DISMISS_ALERT
-} from './alertsActions';
-
-import AlertsState from './alertsState';
+  DISMISS_ALERT }   from './alertsActions';
+import AlertsState  from './alertsState';
 
 export default function alerts(state = AlertsState, action = null) {
   switch (action.type) {

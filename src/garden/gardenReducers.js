@@ -1,13 +1,12 @@
 import {
-  PLANT_SEED,
   AGE_PLANT,
+  PLANT_SEED,
   REMOVE_PLANT,
-  UPDATE_PLANT
-} from './gardenActions';
-import GardenState from './gardenState';
+  UPDATE_PLANT }                from './gardenActions';
+import GardenState              from './gardenState';
 
-import { PLANT_GROWTH_PHASES } from '../utils/constants';
-import { plantAgeFilter } from '../utils/weedUtils';
+import { PLANT_GROWTH_PHASES }  from '../utils/constants';
+import { plantAgeFilter }       from '../utils/weedUtils';
 
 export default function garden(state = GardenState, action = null) {
   const now = new Date().valueOf();
@@ -15,22 +14,6 @@ export default function garden(state = GardenState, action = null) {
   let newPlant;
 
   switch (action.type) {
-    case PLANT_SEED:
-      const { strain } = action;
-      const firstEmptyGardenSquare = state.indexOf(null);
-      return [
-        ...state.slice(0, firstEmptyGardenSquare),
-        {
-          ...strain,
-          age: 0,
-          lastUpdated: now,
-          phase: PLANT_GROWTH_PHASES[0],
-          phaseIndex: 0,
-          gardenSquare: firstEmptyGardenSquare
-        },
-        ...state.slice(firstEmptyGardenSquare + 1)
-      ];
-
     case AGE_PLANT:
       const newPlantAge = plantFromState.age + (now - plantFromState.lastUpdated);
       const newPlantPhaseIndex = plantAgeFilter(newPlantAge);
@@ -45,6 +28,22 @@ export default function garden(state = GardenState, action = null) {
         ...state.slice(0, action.plant.gardenSquare),
         newPlant,
         ...state.slice(action.plant.gardenSquare + 1)
+      ];
+
+    case PLANT_SEED:
+      const { strain } = action;
+      const firstEmptyGardenSquare = state.indexOf(null);
+      return [
+        ...state.slice(0, firstEmptyGardenSquare),
+        {
+          ...strain,
+          age: 0,
+          lastUpdated: now,
+          phase: PLANT_GROWTH_PHASES[0],
+          phaseIndex: 0,
+          gardenSquare: firstEmptyGardenSquare
+        },
+        ...state.slice(firstEmptyGardenSquare + 1)
       ];
 
     case REMOVE_PLANT:

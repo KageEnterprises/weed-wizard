@@ -1,5 +1,13 @@
-import { CONVERSIONS } from './constants';
+import { CONVERSIONS }  from './constants';
 import { getUomByName } from './miscUtils';
+
+export function fixedTo1orRounded(number) {
+  const fixed = number.toFixed(1);
+
+  return fixed[fixed.length - 1] === '0'
+    ? Math.round(number)
+    : fixed;
+}
 
 export function parseQuantity(weed, uom = getUomByName('oz')) {
   const convertedQuantity = weed.uom === uom.name
@@ -49,12 +57,4 @@ export function parseQuantity(weed, uom = getUomByName('oz')) {
   } else {
     return `${fixedTo1orRounded(convertedQuantity)} ${uom.plural}`;
   }
-}
-
-export function fixedTo1orRounded(number) {
-  const fixed = number.toFixed(1);
-
-  return fixed[fixed.length - 1] === '0'
-    ? Math.round(number)
-    : fixed;
 }

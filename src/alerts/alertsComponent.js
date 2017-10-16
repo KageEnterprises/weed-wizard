@@ -1,15 +1,15 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import Modal from 'react-modal';
+import PropTypes  from 'prop-types';
+import React      from 'react';
+import Modal      from 'react-modal';
 
-import Button from '../components/button';
+import Button     from '../components/button';
 
-import styles from './alerts.css';
+import styles     from './alerts.css';
 
-class AlertsComponent extends Component {
+class AlertsComponent extends React.Component {
   static propTypes = {
-    header: PropTypes.string,
     content: PropTypes.node,
+    header: PropTypes.string,
     isOpen: PropTypes.bool,
 
     dismissAlert: PropTypes.func,

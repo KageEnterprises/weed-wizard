@@ -1,17 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Button from '../components/button';
+import PropTypes  from 'prop-types';
+import React      from 'react';
 
-import styles from './playerActions.css';
+import Button     from '../components/button';
+
+import styles     from './playerActions.css';
 
 class PlayerActionsComponent extends React.Component {
   static propTypes = {
-    selectedWeed: PropTypes.object,
-    selectedTool: PropTypes.object,
     emptyGardenSquare: PropTypes.bool,
+    selectedTool: PropTypes.object,
+    selectedWeed: PropTypes.object,
 
-    onSmokeWeed: PropTypes.func,
     onPlantSeed: PropTypes.func,
+    onSmokeWeed: PropTypes.func,
     pauseGame: PropTypes.func
   };
 
