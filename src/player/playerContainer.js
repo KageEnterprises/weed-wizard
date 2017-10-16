@@ -24,18 +24,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  let lastUpdate = new Date();
-
   return {
-    decayHighness: () => {
-      const now = new Date();
-      const timeDelta = now - lastUpdate;
-
-      if (timeDelta > 16) {
-        dispatch(decayHighness(timeDelta));
-
-        lastUpdate = new Date();
-      }
+    decayHighness: (timeDelta) => {
+      dispatch(decayHighness(timeDelta));
     },
 
     onChangeSettingsUoM: (uom) => {

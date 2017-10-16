@@ -15,6 +15,8 @@ import { getStrainById }  from '../utils/weedUtils';
 
 import styles             from './player.css';
 
+let lastUpdate = new Date();
+
 class PlayerComponent extends React.Component {
   static propTypes = {
     gameIsRunning: PropTypes.bool,
@@ -42,9 +44,14 @@ class PlayerComponent extends React.Component {
   }
 
   loopStatusUpdate = () => {
+    const now = new Date();
+    const timeDelta = now - lastUpdate;
+
     if (this.props.gameIsRunning) {
-      this.props.decayHighness();
+      this.props.decayHighness(timeDelta);
     }
+
+    lastUpdate = new Date();
   };
 
   renderWeed() {
