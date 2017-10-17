@@ -10,6 +10,8 @@ import {
 
 import AlertsContainer        from './alerts/alertsContainer';
 import alerts                 from './alerts/alertsReducers';
+import BuySellModalContainer  from './buySell/buySellModalContainer';
+import buySell                from './buySell/buySellReducers';
 import game                   from './game/gameReducers';
 import GardenContainer        from './garden/gardenContainer';
 import garden                 from './garden/gardenReducers';
@@ -26,6 +28,7 @@ import settings               from './settings/settingsReducers';
 
 let reducer = combineReducers({
   alerts,
+  buySell,
   game,
   garden,
   magic,
@@ -64,6 +67,7 @@ class App extends React.Component {
             </Col>
           </Row>
           <AlertsContainer />
+          <BuySellModalContainer />
         </div>
       </Provider>
     );

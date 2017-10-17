@@ -14,6 +14,7 @@ class PlayerActionsComponent extends React.Component {
 
     onPlantSeed: PropTypes.func,
     onSmokeWeed: PropTypes.func,
+    openBuySell: PropTypes.func,
     pauseGame: PropTypes.func
   };
 
@@ -49,6 +50,9 @@ class PlayerActionsComponent extends React.Component {
           tooltip='Click to, uh, pause the game'
           tooltipDelay={250}
           onClick={() => { pauseGame(); }} />
+        <Button
+          label="Buy/Sell"
+          onClick={() => { this.props.openBuySell() }} />
       </Navigation>
     );
   }

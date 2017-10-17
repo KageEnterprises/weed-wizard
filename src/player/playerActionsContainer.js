@@ -1,22 +1,23 @@
-import React                  from 'react';
-import { connect }            from 'react-redux';
+import React                      from 'react';
+import { connect }                from 'react-redux';
 
-import { addAlert }           from '../alerts/alertsActions';
-import { plantSeed }          from '../garden/gardenActions';
-import { addNotification }    from '../notifications/notificationsActions';
+import { setBuySellModalVisible } from '../buySell/buySellActions';
+import { addAlert }               from '../alerts/alertsActions';
+import { plantSeed }              from '../garden/gardenActions';
+import { addNotification }        from '../notifications/notificationsActions';
 import {
   addSeed,
   decreaseSeedQuantity,
   decreaseWeedQuantity,
-  increaseHighness }          from './playerActions';
-import PlayerActionsComponent from './playerActionsComponent';
+  increaseHighness }              from './playerActions';
+import PlayerActionsComponent     from './playerActionsComponent';
 import {
   BASE_SEED_DROP_RATE,
-  CONVERSIONS }               from '../utils/constants';
-import { getToolById }        from '../utils/toolUtils';
+  CONVERSIONS }                   from '../utils/constants';
+import { getToolById }            from '../utils/toolUtils';
 import {
   getRandomTier1Strain,
-  getStrainById }             from '../utils/weedUtils';
+  getStrainById }                 from '../utils/weedUtils';
 
 const mapStateToProps = state => {
   const selectedWeedFromState = state.player.weed.filter(weed => weed.selected)[0];
@@ -86,6 +87,10 @@ const mapDispatchToProps = dispatch => {
       if (fullStrain.quantity - amountToSmoke <= 0) {
         dispatch(addNotification(`You ran out of ${fullStrain.label}!`));
       }
+    },
+
+    openBuySell: () => {
+      dispatch(setBuySellModalVisible(true));
     },
 
     pauseGame: () => {
