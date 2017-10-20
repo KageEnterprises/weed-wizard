@@ -1,0 +1,12 @@
+//@import "../node_modules/react-toolbox/lib/colors";
+
+:root {
+  --color-primary-light: var(--palette-light-green-300);
+  --color-primary: var(--palette-light-green-900);
+  --color-primary-dark: var(--palette-green-900);
+
+  --switch-track-on-color: var(--palette-green-300);
+  --switch-track-off-color: var(--palette-blue-grey-300);
+
+  --tooltip-background: var(--palette-blue-grey-900);
+}

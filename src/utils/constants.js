@@ -60,7 +60,7 @@ export const STRAINS = [
   {
     id: 0,
     tier: 0,
-    label: `Schwag`,
+    label: `Schmendrick's Schwag`,
     description: `The schwiggitiest of schwag. Really not dank at all. Kinda gross, actually.`
   },
   {

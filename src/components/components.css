@@ -1,11 +1,8 @@
-.itemListItem {
-  box-sizing: border-box;
-  border: 1px solid black;
-  padding: 5px;
-  margin-bottom: 5px;
+.selectedItem {
+  /*TODO: All sorts of color-related styling and vars and whatever, that whole setup*/
+  background: #eee;
 }
 
-.itemListItemSelected {
-  composes: itemListItem;
-  background: #ccc;
+.listItem .itemText:not(.primary) {
+  font-size: var(--font-size-tiny);
 }

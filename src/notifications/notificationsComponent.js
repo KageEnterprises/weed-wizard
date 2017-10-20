@@ -1,7 +1,9 @@
 import PropTypes  from 'prop-types';
 import React      from 'react';
-
-import styles     from './notifications.css';
+import {
+  List,
+  ListItem,
+  ListSubHeader } from 'react-toolbox/lib/list';
 
 class NotificationsComponent extends React.Component {
   static propTypes = {
@@ -39,20 +41,27 @@ class NotificationsComponent extends React.Component {
   }
 
   renderNotifications() {
-    return this.props.notifications.sort((a, b) => b.timeStamp - a.timeStamp)
-      .map(notification => (
-        <div key={`${notification.created}${notification.message}`}>
-          <p>{notification.message}</p>
-        </div>
-      ));
+    return this.props.notifications
+      .map((notification, idx) => {
+        const message = typeof notification.message === 'string' ?
+          <span>{notification.message}</span> :
+          notification.message;
+
+        return (
+          <ListItem
+            key={idx}>
+            {message}
+          </ListItem>
+        );
+      });
   }
 
   render() {
     return (
-      <div className={styles.notifications}>
-        <h3>Notifications</h3>
+      <List>
+        <ListSubHeader caption='Notifications' />
         {this.renderNotifications()}
-      </div>
+      </List>
     );
   }
 }

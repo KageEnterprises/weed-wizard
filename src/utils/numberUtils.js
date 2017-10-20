@@ -5,8 +5,12 @@ export function fixedTo1orRounded(number) {
   const fixed = number.toFixed(1);
 
   return fixed[fixed.length - 1] === '0'
-    ? Math.round(number)
-    : fixed;
+    ? Math.round(number).toString()
+    : fixed.toString();
+}
+
+export function moneyFilter(amount, symbol = '') {
+  return `${symbol}${amount.toFixed(2).toString()}`;
 }
 
 export function parseQuantity(weed, uom = getUomByName('oz')) {
@@ -15,46 +19,38 @@ export function parseQuantity(weed, uom = getUomByName('oz')) {
     : weed.quantity * CONVERSIONS[`${weed.uom.toUpperCase()}_TO_${uom.name.toUpperCase()}`];
 
   if (convertedQuantity <= 0) {
-    return `none!`;
+    return `0`;
   } else if (convertedQuantity < 0.125) {
-    return `less than an eighth of ${uom.article} ${uom.label}`;
+    return `< 1/8`;
   } else if (convertedQuantity === 0.125) {
-    return `an eighth of ${uom.article} ${uom.label}`;
+    return `1/8`;
   } else if (convertedQuantity < 0.25) {
-    return `less than a quarter of ${uom.article} ${uom.label}`;
+    return `< 1/4`;
   } else if (convertedQuantity === 0.25) {
-    return `a quarter of ${uom.article} ${uom.label}`;
+    return `1/4`;
   } else if (convertedQuantity < 0.375) {
-    return `less than three eighths of ${uom.article} ${uom.label}`;
+    return `< 3/8`;
   } else if (convertedQuantity === 0.375) {
-    return `three eighths of ${uom.article} ${uom.label}`;
+    return `3/8`;
   } else if (convertedQuantity < 0.5) {
-    return `less than a half of ${uom.article} ${uom.label}`;
+    return `< 1/2`;
   } else if (convertedQuantity === 0.5) {
-    return `a half of ${uom.article} ${uom.label}`;
+    return `1/2`;
   } else if (convertedQuantity < 0.625) {
-    return `less than five eighths of ${uom.article} ${uom.label}`;
+    return `< 5/8`;
   } else if (convertedQuantity === 0.625) {
-    return `five eighths of ${uom.article} ${uom.label}`;
+    return `5/8`;
   } else if (convertedQuantity < 0.75) {
-    return `less than three quarters of ${uom.article} ${uom.label}`;
+    return `< 3/4`;
   } else if (convertedQuantity === 0.75) {
-    return `three quarters of ${uom.article} ${uom.label}`;
+    return `3/4`;
   } else if (convertedQuantity < 0.875) {
-    return `less than seven eighths of ${uom.article} ${uom.label}`;
+    return `< 7/8`;
   } else if (convertedQuantity === 0.875) {
-    return `seven eighths of ${uom.article} ${uom.label}`;
+    return `7/8`;
   } else if (convertedQuantity < 1) {
-    return `less than ${uom.article} ${uom.label}`;
-  } else if (convertedQuantity === 1) {
-    return `${uom.article} ${uom.label}`;
-  } else if (convertedQuantity < 1.5) {
-    return `less than one and a half ${uom.plural}`;
-  } else if (convertedQuantity === 1.5) {
-    return `one and a half ${uom.plural}`;
-  } else if (convertedQuantity < 2) {
-    return `less than two ${uom.plural}`;
+    return `< 1`;
   } else {
-    return `${fixedTo1orRounded(convertedQuantity)} ${uom.plural}`;
+    return `${fixedTo1orRounded(convertedQuantity)}`;
   }
 }

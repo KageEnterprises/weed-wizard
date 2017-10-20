@@ -1,11 +1,18 @@
 import PropTypes  from 'prop-types';
 import React      from 'react';
+import {
+  Card,
+  CardText,
+  CardTitle }     from 'react-toolbox/lib/card';
+import Tooltip    from 'react-toolbox/lib/tooltip';
 
-import Button     from '../components/button';
+import { Button } from 'react-toolbox/lib/button';
 
 import styles     from './gardenSquare.css';
 
 let lastLoop = new Date();
+
+const TooltipButton = Tooltip(Button);
 
 class GardenSquare extends React.Component {
   static propTypes = {
@@ -50,7 +57,6 @@ class GardenSquare extends React.Component {
           if (this.props.activeSpells.indexOf(0) > -1) {
             ageDiff *= 40;
           }
-          console.log('ageDiff', ageDiff);
           this.props.agePlant(this.props.plant, ageDiff);
         }
         this.props.updatePlant(this.props.plant, now);
@@ -62,36 +68,44 @@ class GardenSquare extends React.Component {
   renderDetails = () => {
     const { plant } = this.props;
 
-    return (
-      <div>
-        <p className={styles.strainLabel}>
-          {plant.label}
-        </p>
-        <p>
-          <span>{plant.phase}</span>
-        </p>
-        {plant.phase === 'Mature'
-          ? <Button
-              label='Harvest'
-              tooltip='Click to harvest this plant'
-              onClick={() => {this.props.harvestPlant(plant);}}
-            />
+    return [
+      <CardTitle
+        key='title'
+        theme={styles}
+        title={plant.label}
+        subtitle={plant.phase} />,
+      <CardText
+        theme={styles}
+        key='actions'>
+        {plant.phase === 'Mature' ?
+          <TooltipButton
+            primary floating mini
+            theme={styles}
+            label='Harvest'
+            tooltip='Click to harvest this plant'
+            tooltipDelay={250}
+            onClick={() => {this.props.harvestPlant(plant);}} />
           : null}
-        <Button
-          label='Remove plant'
+        <TooltipButton
+          primary floating mini
+          theme={styles}
+          label='Remove'
           tooltip='Click to remove this plant without harvesting it'
-          onClick={() => {this.props.removePlant(plant);}}/>
-      </div>
-    );
+          tooltipDelay={250}
+          onClick={() => {this.props.removePlant(plant);}} />
+      </CardText>
+    ];
   };
 
   render() {
     return (
-      <div className={styles.gardenSquare}>
-        {this.props.plant
-          ? this.renderDetails()
-          : `This space is empty.`}
-      </div>
+      <Card
+        theme={styles}
+        className={this.props.plant && this.props.plant.phase === 'Mature' ? styles.mature : ''}>
+        {this.props.plant ?
+          this.renderDetails() :
+          <CardText theme={styles}>Just dirt!</CardText> }
+      </Card>
     );
   }
 }

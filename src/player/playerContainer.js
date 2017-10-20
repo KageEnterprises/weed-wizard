@@ -10,6 +10,7 @@ import { changeSettingsUoM }  from '../settings/settingsActions';
 const mapStateToProps = state => {
   const {
     highness,
+    money,
     tools,
     weed } = state.player;
   const { settingsUoM } = state.settings;
@@ -17,6 +18,7 @@ const mapStateToProps = state => {
   return {
     gameIsRunning: state.game.isRunning,
     highness,
+    money,
     settingsUoM,
     tools,
     weed
@@ -37,8 +39,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(selectTool(idx));
     },
 
-    selectWeed: (idx) => {
-      dispatch(selectWeed(idx));
+    selectWeed: (id) => {
+      dispatch(selectWeed(id));
     }
   };
 };

@@ -1,19 +1,31 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-
-import ItemList           from '../components/itemList';
-import ItemListItem       from '../components/itemListItem';
+import PropTypes          from 'prop-types';
+import React              from 'react';
+import { Avatar }         from 'react-toolbox/lib/avatar';
 import {
-  HIGHNESS_CAP,
-  WEED_UOMS }             from '../utils/constants';
+  Card,
+  CardTitle,
+  CardText }              from 'react-toolbox/lib/card';
+import { Chip }           from 'react-toolbox/lib/chip';
+import {
+  List,
+  ListItem,
+  ListSubHeader }         from 'react-toolbox/lib/list';
+import { Switch }         from 'react-toolbox/lib/switch';
+import Tooltip            from 'react-toolbox/lib/tooltip';
+
+import { HIGHNESS_CAP }   from '../utils/constants';
 import { getUomByName }   from '../utils/miscUtils';
 import {
   fixedTo1orRounded,
+  moneyFilter,
   parseQuantity }         from '../utils/numberUtils';
 import { getToolById }    from '../utils/toolUtils';
 import { getStrainById }  from '../utils/weedUtils';
 
 import styles             from './player.css';
+import componentStyles    from '../components/components.css';
+
+const TooltipChip = Tooltip(Chip);
 
 let lastUpdate = new Date();
 
@@ -21,6 +33,7 @@ class PlayerComponent extends React.Component {
   static propTypes = {
     gameIsRunning: PropTypes.bool,
     highness: PropTypes.number,
+    money: PropTypes.number,
     settingsUoM: PropTypes.string,
     tools: PropTypes.array,
     weed: PropTypes.array,
@@ -54,6 +67,63 @@ class PlayerComponent extends React.Component {
     lastUpdate = new Date();
   };
 
+  toggleUoM = () => {
+    const { settingsUoM } = this.props;
+
+    if (settingsUoM === 'oz') {
+      this.props.onChangeSettingsUoM('g');
+    } else {
+      this.props.onChangeSettingsUoM('oz');
+    }
+  };
+
+  renderHighness = () => {
+    const avatarTitle = this.props.highness >= 9.5 ?
+      '!' :
+      Math.round(Math.min(this.props.highness, HIGHNESS_CAP)).toString();
+
+    return (
+      <TooltipChip
+        tooltip={fixedTo1orRounded(Math.min(this.props.highness, HIGHNESS_CAP))} >
+        <Avatar
+          title={avatarTitle} />
+        How High You Are
+      </TooltipChip>
+    );
+  };
+
+  renderMoney = () => (
+    <Chip>
+      <Avatar
+        title='$' />
+      {moneyFilter(this.props.money)}
+    </Chip>
+  );
+
+  renderTools() {
+    const tools = this.props.tools.map((tool, idx) => {
+      const fullTool = getToolById(tool.id);
+
+      return (
+        <ListItem
+          key={idx}
+          theme={componentStyles}
+          caption={fullTool.label}
+          legend={fullTool.description}
+          className={`${componentStyles.listItem} ${tool.selected ? componentStyles.selectedItem : null}`}
+          onClick={() => { this.props.selectTool(idx) }} />
+      );
+    });
+
+    return (
+      <List
+        selectable={true}>
+        <ListSubHeader caption='Tools You have' />
+        {tools}
+      </List>
+    );
+  }
+
   renderWeed() {
     const fullSettingsUoM = getUomByName(this.props.settingsUoM);
     const weeds = this.props.weed
@@ -66,77 +136,52 @@ class PlayerComponent extends React.Component {
         };
 
         return (
-          <ItemListItem
+          <ListItem
             key={fullWeed.id}
-            label={fullWeed.label}
-            description={fullWeed.description}
-            selected={weed.selected}
-            onClick={() => { this.props.selectWeed(idx) }}>
-            <div className={styles.weedListItemContent}>
-              <p className={styles.weedListItemContentItem}>
-                <b>Amount:</b> {parseQuantity(weed, fullSettingsUoM)}
-              </p>
-              {fullWeed.seeds
-                ? <p className={styles.weedListItemContentItem}><b>Seeds</b>: {fullWeed.seeds}</p>
-                : null}
-            </div>
-          </ItemListItem>
+            theme={componentStyles}
+            caption={fullWeed.label}
+            legend={fullWeed.description}
+            className={`${componentStyles.listItem} ${weed.selected ? componentStyles.selectedItem : null}`}
+            rightActions={[
+              <Chip
+                key='quantity'
+                className={styles.weedChip}>
+                {`${parseQuantity(weed, fullSettingsUoM)} ${this.props.settingsUoM}`}
+              </Chip>,
+              <Chip
+                key='seeds'
+                className={styles.weedChip}>
+                {`${fullWeed.seeds} seed${fullWeed.seeds !== 1 ? 's' : ''}`}
+              </Chip>
+            ]}
+            onClick={() => { this.props.selectWeed(fullWeed.id) }} />
         );
       });
-    const weedUomSelectors = WEED_UOMS.map((uom) => (
-      <span
-        key={uom.name}
-        className={fullSettingsUoM.name === uom.name ? styles.weedUomLabelSelected : styles.weedUomLabel}
-        onClick={() => { this.props.onChangeSettingsUoM(uom.name)}}>
-        {uom.label}s
-      </span>
-    ));
 
     return (
-      <ItemList
-        header={`Weed You Have`}
-        list={weeds}
-        before={(
-          <p>
-            {`Show weed in `}
-            {weedUomSelectors}
-          </p>
-        )} />
+      <List
+        selectable={true}>
+        <ListSubHeader caption='Weed You Have' />
+        {weeds}
+      </List>
     );
   }
-
-  renderTools() {
-    const tools = this.props.tools.map((tool, idx) => {
-      const fullTool = getToolById(tool.id);
-
-      return (
-        <ItemListItem
-          key={idx}
-          label={fullTool.label}
-          description={fullTool.description}
-          selected={tool.selected}
-          onClick={() => { this.props.selectTool(idx) }} />
-      );
-    });
-
-    return (
-      <ItemList
-        header={`Tools You Have`}
-        list={tools} />
-    );
-  }
-
-  renderHighness = () => (
-    <p>How High You Are: {fixedTo1orRounded(Math.min(this.props.highness, HIGHNESS_CAP))}</p>
-  );
 
   render() {
     return (
-      <div className={styles.player}>
-        {this.renderWeed()}
-        {this.renderTools()}
-        {this.renderHighness()}
-      </div>
+      <Card>
+        <CardTitle
+          title='Your Inventory and Status' />
+        <CardText>
+          <Switch
+            checked={this.props.settingsUoM === 'oz'}
+            label={'Off for grams, on for ounces'}
+            onChange={this.toggleUoM} />
+          {this.renderWeed()}
+          {this.renderTools()}
+          {this.renderHighness()}
+        </CardText>
+      </Card>
     );
   }
 }

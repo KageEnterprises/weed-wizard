@@ -1,5 +1,9 @@
 import PropTypes              from 'prop-types';
 import React                  from 'react';
+import {
+  Card,
+  CardText,
+  CardTitle }                 from 'react-toolbox/lib/card';
 
 import GardenSquareContainer  from './gardenSquareContainer';
 
@@ -20,17 +24,18 @@ class GardenComponent extends React.Component {
 
   render() {
     return (
-      <div className={styles.garden}>
-        <h3>Garden</h3>
-        <div className={styles.field}>
+      <Card>
+        <CardTitle
+          title='Garden' />
+        <CardText className={styles.flex}>
           {this.props.garden.map((plant, idx) => (
             <GardenSquareContainer
               key={idx}
               plant={plant}
               {...this.props} />
           ))}
-        </div>
-      </div>
+        </CardText>
+      </Card>
     );
   }
 }

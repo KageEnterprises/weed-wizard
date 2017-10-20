@@ -5,6 +5,7 @@ const initialPlayerState = () => {
 
   return {
     highness: 0,
+    money: 0,
     tools: [
       {
         id: 0,

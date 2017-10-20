@@ -1,10 +1,15 @@
-import PropTypes    from 'prop-types';
-import React        from 'react';
+import PropTypes        from 'prop-types';
+import React            from 'react';
+import {
+  Card,
+  CardTitle,
+  CardText }            from 'react-toolbox/lib/card';
+import {
+  List,
+  ListItem,
+  ListSubHeader }       from 'react-toolbox/lib/list';
 
-import ItemList     from '../components/itemList';
-import ItemListItem from '../components/itemListItem';
-
-import styles       from './magic.css';
+import componentStyles  from '../components/components.css';
 
 class MagicSpellsComponent extends React.Component {
   static propTypes = {
@@ -53,29 +58,34 @@ class MagicSpellsComponent extends React.Component {
 
   renderSpellList() {
     const spells = this.props.spellsYouKnow.map((spell, idx) => {
-
       return (
-        <ItemListItem
+        <ListItem
           key={idx}
-          label={spell.name}
-          description={spell.description}
-          selected={spell.active}
+          caption={spell.name}
+          legend={spell.description}
+          className={spell.active ? componentStyles.selectedItem : null}
           onClick={() => { this.toggleSpell(spell); }} />
       );
     });
 
     return (
-      <ItemList
-        header={`Magic Spells You Know`}
-        list={spells} />
+      <List
+        selectable={true} >
+        <ListSubHeader caption='Magic Spells You Know' />
+        {spells}
+      </List>
     );
   }
 
   render() {
     return (
-      <div className={styles.magicSpells}>
-        {this.renderSpellList()}
-      </div>
+      <Card>
+        <CardTitle
+          title='Magic!' />
+        <CardText>
+          {this.renderSpellList()}
+        </CardText>
+      </Card>
     );
   }
 }

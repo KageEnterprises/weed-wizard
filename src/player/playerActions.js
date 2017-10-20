@@ -58,9 +58,9 @@ export function selectTool(index) {
   };
 }
 
-export function selectWeed(index) {
+export function selectWeed(id) {
   return {
     type: SELECT_WEED,
-    index
+    id
   };
 }
