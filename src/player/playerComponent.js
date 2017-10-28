@@ -22,7 +22,6 @@ import {
 import { getToolById }    from '../utils/toolUtils';
 import { getStrainById }  from '../utils/weedUtils';
 
-import styles             from './player.css';
 import componentStyles    from '../components/components.css';
 
 const TooltipChip = Tooltip(Chip);
@@ -145,12 +144,12 @@ class PlayerComponent extends React.Component {
             rightActions={[
               <Chip
                 key='quantity'
-                className={styles.weedChip}>
+                className={componentStyles.weedCardChip}>
                 {`${parseQuantity(weed, fullSettingsUoM)} ${this.props.settingsUoM}`}
               </Chip>,
               <Chip
                 key='seeds'
-                className={styles.weedChip}>
+                className={componentStyles.weedCardChip}>
                 {`${fullWeed.seeds} seed${fullWeed.seeds !== 1 ? 's' : ''}`}
               </Chip>
             ]}
@@ -180,6 +179,7 @@ class PlayerComponent extends React.Component {
           {this.renderWeed()}
           {this.renderTools()}
           {this.renderHighness()}
+          {this.renderMoney()}
         </CardText>
       </Card>
     );

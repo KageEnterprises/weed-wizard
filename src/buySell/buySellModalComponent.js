@@ -1,11 +1,18 @@
-import PropTypes  from 'prop-types';
-import React      from 'react';
-import { Dialog } from 'react-toolbox/lib/dialog';
+import PropTypes            from 'prop-types';
+import React                from 'react';
+import { Dialog }           from 'react-toolbox/lib/dialog';
+import {
+  Tab,
+  Tabs }                    from 'react-toolbox';
+
+import SellScreenContainer  from '../sellScreen/sellScreenContainer';
 
 class BuySellModalComponent extends React.Component {
   static propTypes = {
     isOpen: PropTypes.bool,
+    view: PropTypes.number,
 
+    changeView: PropTypes.func,
     closeBuySell: PropTypes.func,
     pauseGame: PropTypes.func,
     resumeGame: PropTypes.func
@@ -23,6 +30,10 @@ class BuySellModalComponent extends React.Component {
     }
   }
 
+  changeView = (index) => {
+    this.props.changeView(index);
+  };
+
   closeModal = () => {
     this.props.closeBuySell();
     this.props.resumeGame();
@@ -32,14 +43,24 @@ class BuySellModalComponent extends React.Component {
     return (
       <Dialog
         title='Buy / Sell'
+        type='large'
         active={this.props.isOpen}
         actions={[{
-          label: 'Okay',
-          primary: true,
+          label: 'Cancel',
           raised: true,
           onClick: this.closeModal
         }]}>
-        <div>All the buy/sell shit goes here, woo!!</div>
+        <Tabs
+          hideMode='display'
+          index={this.props.view}
+          onChange={(index) => { this.changeView(index); }}>
+          <Tab label='Buy'>
+            Buy
+          </Tab>
+          <Tab label='Sell'>
+            <SellScreenContainer />
+          </Tab>
+        </Tabs>
       </Dialog>
     );
   }

@@ -1,6 +1,10 @@
 import { CONVERSIONS }  from './constants';
 import { getUomByName } from './miscUtils';
 
+export function convertQuantity(quantity, fromUoM, toUoM) {
+  return quantity * CONVERSIONS[`${fromUoM.toUpperCase()}_TO_${toUoM.toUpperCase()}`];
+}
+
 export function fixedTo1orRounded(number) {
   const fixed = number.toFixed(1);
 

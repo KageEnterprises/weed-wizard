@@ -1,0 +1,29 @@
+.item {
+  flex-wrap: wrap;
+}
+
+.item p {
+  font-size: 80%;
+  font-style: italic;
+}
+
+.right,
+.right > :first-child,
+.itemAction
+{
+  flex-basis: 100%;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+.right {
+  padding-left: 20px;
+}
+
+.sliderContainer {
+  width: 100%;
+}
+
+.tab.active {
+  padding: 0;
+}

@@ -6,3 +6,11 @@
 .listItem .itemText:not(.primary) {
   font-size: var(--font-size-tiny);
 }
+
+.weedCardChip {
+  background: #ddd;
+  padding: 0 calc(var(--chip-padding) * 0.75);
+  line-height: calc(var(--chip-height) * 0.75);
+  font-size: calc(var(--chip-font-size) * 0.75);
+}
+
