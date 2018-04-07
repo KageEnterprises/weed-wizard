@@ -22,6 +22,7 @@ import notifications          from './notifications/notificationsReducers';
 import PlayerActionsContainer from './player/playerActionsContainer';
 import PlayerContainer        from './player/playerContainer';
 import player                 from './player/playerReducers';
+import forSale                from './sellScreen/sellScreenReducers';
 import settings               from './settings/settingsReducers';
 
 //import logo                 from './logo.svg';
@@ -29,6 +30,7 @@ import settings               from './settings/settingsReducers';
 let reducer = combineReducers({
   alerts,
   buySell,
+  forSale,
   game,
   garden,
   magic,

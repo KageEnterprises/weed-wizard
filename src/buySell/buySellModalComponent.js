@@ -9,8 +9,9 @@ import SellScreenContainer  from '../sellScreen/sellScreenContainer';
 
 class BuySellModalComponent extends React.Component {
   static propTypes = {
+    forSaleCount: PropTypes.number,
     isOpen: PropTypes.bool,
-    view: PropTypes.number,
+    view: PropTypes.number, // 0 for buy, 1 for sell
 
     changeView: PropTypes.func,
     closeBuySell: PropTypes.func,
@@ -40,18 +41,28 @@ class BuySellModalComponent extends React.Component {
   };
 
   render() {
+    const actions = [{
+      label: 'Cancel',
+      raised: true,
+      onClick: this.closeModal
+    }];
+
+    if (this.props.view === 1) {
+      actions.push({
+        label: 'Find Buyer',
+        raised: this.props.forSaleCount > 0,
+        primary: true,
+        disabled: this.props.forSaleCount <= 0
+      });
+    }
+
     return (
       <Dialog
         title='Buy / Sell'
         type='large'
         active={this.props.isOpen}
-        actions={[{
-          label: 'Cancel',
-          raised: true,
-          onClick: this.closeModal
-        }]}>
+        actions={actions}>
         <Tabs
-          hideMode='display'
           index={this.props.view}
           onChange={(index) => { this.changeView(index); }}>
           <Tab label='Buy'>

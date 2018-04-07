@@ -1,8 +1,13 @@
-import { connect }        from 'react-redux';
+import { connect }          from 'react-redux';
 
-import SellScreenComponent from './sellScreenComponent';
+import {
+  seedsForSale,
+  toolsForSale,
+  weedForSale }             from './sellScreenActions';
+import SellScreenComponent  from './sellScreenComponent';
 
 const mapStateToProps = state => {
+  const { forSale } = state;
   const {
       money,
       tools,
@@ -10,15 +15,30 @@ const mapStateToProps = state => {
   const { settingsUoM } = state.settings;
 
   return {
+    forSale,
+    inventory: {
+      tools,
+      weed
+    },
     money,
-    settingsUoM,
-    tools,
-    weed
+    settingsUoM
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    seedsForSale: (weed, quantity) => {
+      dispatch(seedsForSale(weed, quantity));
+    },
+
+    toolsForSale: (tool, quantity) => {
+      dispatch(toolsForSale(tool, quantity));
+    },
+
+    weedForSale: (weed, quantity) => {
+      dispatch(weedForSale(weed, quantity));
+    }
+  };
 };
 
 const SellScreenContainer = connect(mapStateToProps, mapDispatchToProps)(SellScreenComponent);

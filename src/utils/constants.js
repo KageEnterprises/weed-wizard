@@ -1,9 +1,15 @@
 export const CONVERSIONS = {
   BOWL_TO_G: 0.25, // 0.25 - 0.35 for a small bowl
+  BOWL_TO_LB: 0.0005511557,
   BOWL_TO_OZ: 0.00881849,
   G_TO_G: 1,
+  G_TO_LB: 0.00220462,
   G_TO_OZ: 0.035274,
+  LB_TO_G: 453.592,
+  LB_TO_LB: 1,
+  LB_TO_OZ: 16,
   OZ_TO_G: 28.3495,
+  OZ_TO_LB: 0.0625,
   OZ_TO_OZ: 1
 };
 
@@ -12,7 +18,7 @@ export const DEFAULT_NOTIFICATION_LIFE = 10000;
 export const HIGHNESS_CAP = 10;
 export const BASE_SEED_DROP_RATE = 0.2;
 export const BASE_TIME_PER_PLANT_GROWTH_PHASE = 300000; // 5 minutes
-export const BASE_HARVEST_PER_PLANT = 12; // In ounces
+export const BASE_HARVEST_PER_PLANT = 5; // In ounces
 
 export const PLANT_GROWTH_PHASES = [
   'Seedling',
@@ -32,7 +38,8 @@ export const TIERS = [
       quarter: 27,
       half: 50,
       oz: 95,
-      lb: 1450
+      lb: 1450,
+      seed: 0.25
     },
     growthRate: 1,
     seedDropMod: 1,
@@ -48,7 +55,8 @@ export const TIERS = [
       quarter: 37,
       half: 69,
       oz: 125,
-      lb: 1900
+      lb: 1900,
+      seed: 0.5
     },
     growthRate: 1,
     seedDropMod: 0.7,

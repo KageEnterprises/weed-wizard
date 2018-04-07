@@ -14,6 +14,7 @@ export default function buySell(state = BuySellState, action = null) {
     case SET_BUY_SELL_MODAL_VISIBLE:
       return {
         ...state,
+        view: 0,
         visible: action.visible
       };
 
