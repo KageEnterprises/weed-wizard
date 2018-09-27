@@ -1,8 +1,0 @@
-.selectedItem {
-  /*TODO: All sorts of color-related styling and vars and whatever, that whole setup*/
-  background: #eee;
-}
-
-.listItem .itemText:not(.primary) {
-  font-size: var(--font-size-tiny);
-}

@@ -1,17 +1,7 @@
-import { SPELLS } from './magicConstants';
+import {
+  SPELLS_LIST
+} from './SpellsList';
 
-export const getSpellById = spellId => {
-  let res;
-
-  if (SPELLS[spellId].id === spellId) {
-    return SPELLS[spellId];
-  }
-
-  SPELLS.forEach((spell) => {
-    if (spell.id === spellId) {
-      res = spell;
-    }
-  });
-
-  return res;
+export const getSpellById = id => {
+  return SPELLS_LIST.find(SPELL => SPELL.id === id);
 };
