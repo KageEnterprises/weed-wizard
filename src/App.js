@@ -54,6 +54,7 @@ class App extends React.Component {
           decayHighness: this.decayHighness,
           plantSeed: this.plantSeed,
           removePlant: this.removePlant,
+          saveState: this.saveState,
           selectTool: this.selectTool,
           selectWeed: this.selectWeed,
           smokeWeed: this.smokeWeed,
@@ -69,6 +70,26 @@ class App extends React.Component {
         }
       }
     };
+  }
+
+  componentWillMount() {
+    const { context } = this.state;
+    const { actions } = context;
+    const { addNotification } = actions;
+
+    const player = JSON.parse(localStorage.getItem('weedWizard'));
+
+    if (player) {
+      addNotification('Game loaded!');
+
+      this.setState({
+        ...this.state,
+        context: {
+          ...context,
+          player
+        }
+      });
+    }
   }
 
   componentDidMount() {
@@ -342,6 +363,17 @@ class App extends React.Component {
         }
       }
     });
+  };
+
+  saveState = (showNotification = true) => {
+    const { context } = this.state;
+    const {
+      actions,
+      player } = context;
+    const { addNotification } = actions;
+
+    localStorage.setItem('weedWizard', JSON.stringify( player ));
+    if (showNotification) addNotification('Game saved!');
   };
 
   selectTool = id => {

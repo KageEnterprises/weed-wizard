@@ -25,7 +25,8 @@ import {
 import {
   ChevronLeft as ChevronLeftIcon,
   Menu as MenuIcon,
-  PauseCircleFilled
+  PauseCircleFilled,
+  Save as SaveIcon
 } from '@material-ui/icons';
 import {
   MuiThemeProvider,
@@ -239,6 +240,7 @@ class AppDisplay extends React.Component {
     } = context;
     const {
       plantSeed,
+      saveState,
       smokeWeed } = actions;
 
     return (
@@ -310,6 +312,17 @@ class AppDisplay extends React.Component {
                   <PauseCircleFilled />
                 </ListItemIcon>
                 <ListItemText primary='Pause Game' />
+              </ListItem>
+            </List>
+            <Divider />
+            <List>
+              <ListItem
+                button
+                onClick={ saveState } >
+                <ListItemIcon classes={{ root: classes.listItemIconFA }}>
+                  <SaveIcon />
+                </ListItemIcon>
+                <ListItemText primary='Save Game' />
               </ListItem>
             </List>
           </Drawer>
