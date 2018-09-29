@@ -140,6 +140,7 @@ class App extends React.Component {
       spellsList } = player;
     let timeToAge = timeSinceLastUpdate;
 
+    if (gameIsRunning) {
     // If the Grow Faster spell is active, do that
     if (spellsList.find(SPELL => SPELL.id === 0).active) timeToAge *= 60;
 
@@ -174,7 +175,6 @@ class App extends React.Component {
       }
     });
 
-    if (gameIsRunning) {
       this.setState({
         context: {
           ...context,
