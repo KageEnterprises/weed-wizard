@@ -8,6 +8,7 @@ export const contextPropTypes = {
   actions: {
     addNotification: PropTypes.func,
     agePlants: PropTypes.func,
+    autosaveTimer: PropTypes.func,
     decayHighness: PropTypes.func,
     plantSeed: PropTypes.func,
     removePlant: PropTypes.func,
@@ -25,6 +26,7 @@ export const contextPropTypes = {
   actionsShape: PropTypes.shape({
     addNotification: PropTypes.func,
     agePlants: PropTypes.func,
+    autosaveTimer: PropTypes.func,
     decayHighness: PropTypes.func,
     harvestPlant: PropTypes.func,
     plantSeed: PropTypes.func,
@@ -48,6 +50,7 @@ export const contextPropTypes = {
   // Game Loop
   gameIsRunning: PropTypes.bool,
   lastUpdated: PropTypes.number,
+  timeSinceLastSave: PropTypes.number,
   timeSinceLastUpdate: PropTypes.number,
   loop: {
     loop: PropTypes.func.isRequired,
@@ -110,6 +113,7 @@ export const defaultContext = {
   actions: {
     addNotification: () => { },
     agePlants: () => { },
+    autosaveTimer: () => { },
     decayHighness: () => { },
     harvestPlant: () => { },
     plantSeed: () => { },
@@ -134,6 +138,7 @@ export const defaultContext = {
   // Game Loop
   gameIsRunning: false,
   lastUpdated: new Date().getTime(),
+  timeSinceLastSave: 0,
   timeSinceLastUpdate: 0,
   loop: {
     loop() { },

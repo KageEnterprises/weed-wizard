@@ -8,6 +8,7 @@ import TransmuteDialog from './Magic/TransmuteDialog';
 import { getSpellById } from './Magic/MagicUtils';
 import { getToolById } from './Tools/ToolUtils';
 import {
+  AUTOSAVE_INTERVAL,
   BASE_SEED_DROP_RATE,
   BASE_TIME_PER_PLANT_GROWTH_PHASE,
   COME_DOWN_RATE,
@@ -50,6 +51,7 @@ class App extends React.Component {
           ...defaultContext.actions,
           addNotification: this.addNotification,
           agePlants: this.agePlants,
+          autosaveTimer: this.autosaveTimer,
           harvestPlant: this.harvestPlant,
           decayHighness: this.decayHighness,
           plantSeed: this.plantSeed,
@@ -186,6 +188,16 @@ class App extends React.Component {
         }
       });
     }
+  };
+
+  autosaveTimer = () => {
+    const { context } = this.state;
+    const {
+      actions,
+      timeSinceLastSave } = context;
+    const { saveState } = actions;
+
+    if (timeSinceLastSave > AUTOSAVE_INTERVAL) saveState();
   };
 
   decayHighness = () => {
@@ -394,6 +406,13 @@ class App extends React.Component {
 
     localStorage.setItem('weedWizard', JSON.stringify( player ));
     if (showNotification) addNotification('Game saved!');
+
+    this.setState({
+      context: {
+        ...context,
+        timeSinceLastSave: 0
+      }
+    });
   };
 
   selectTool = id => {
@@ -604,7 +623,9 @@ class App extends React.Component {
 
   updateTimestamp = () => {
     const { context } = this.state;
-    const { lastUpdated } = context;
+    const {
+      lastUpdated,
+      timeSinceLastSave } = context;
     const newTime = new Date().getTime();
     const timeSinceLastUpdate = newTime - lastUpdated;
 
@@ -613,6 +634,7 @@ class App extends React.Component {
       context: {
         ...context,
         lastUpdated: newTime,
+        timeSinceLastSave: timeSinceLastSave + timeSinceLastUpdate,
         timeSinceLastUpdate
       }
     });

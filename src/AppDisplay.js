@@ -143,10 +143,13 @@ class AppDisplay extends React.Component {
     const {
       actions,
       loop } = context;
-    const { updateTimestamp } = actions;
+    const {
+      autosaveTimer,
+      updateTimestamp } = actions;
 
     this.callbackId = loop.subscribe(() => {
       updateTimestamp.call();
+      autosaveTimer.call();
     });
   }
 

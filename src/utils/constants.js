@@ -1,3 +1,4 @@
+export const AUTOSAVE_INTERVAL = 60000; // one minute in milliseconds
 export const BASE_SEED_DROP_RATE = 0.2;
 export const BASE_TIME_PER_PLANT_GROWTH_PHASE = 300000; // 5 minutes
 export const COME_DOWN_RATE = 0.0001; // per millisecond
