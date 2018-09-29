@@ -54,6 +54,7 @@ class App extends React.Component {
           decayHighness: this.decayHighness,
           plantSeed: this.plantSeed,
           removePlant: this.removePlant,
+          resetGame: this.resetGame,
           saveState: this.saveState,
           selectTool: this.selectTool,
           selectWeed: this.selectWeed,
@@ -141,39 +142,39 @@ class App extends React.Component {
     let timeToAge = timeSinceLastUpdate;
 
     if (gameIsRunning) {
-    // If the Grow Faster spell is active, do that
-    if (spellsList.find(SPELL => SPELL.id === 0).active) timeToAge *= 60;
+      // If the Grow Faster spell is active, do that
+      if (spellsList.find(SPELL => SPELL.id === 0).active) timeToAge *= 60;
 
-    const newGarden = garden.map(plant => {
-      if (typeof plant === 'undefined') return plant;
-      else {
-        const {
-          age,
-          phase } = plant;
-        const newAge = age + timeToAge;
-        const newPhase = plantAgePhaseFilter(newAge);
+      const newGarden = garden.map(plant => {
+        if (typeof plant === 'undefined' || plant === null) return undefined;
+        else {
+          const {
+            age,
+            phase } = plant;
+          const newAge = age + timeToAge;
+          const newPhase = plantAgePhaseFilter(newAge);
 
-        let newGrowthProgress = age / BASE_TIME_PER_PLANT_GROWTH_PHASE;
-        newGrowthProgress = (newGrowthProgress - Math.floor(newGrowthProgress)) * 100;
+          let newGrowthProgress = age / BASE_TIME_PER_PLANT_GROWTH_PHASE;
+          newGrowthProgress = (newGrowthProgress - Math.floor(newGrowthProgress)) * 100;
 
-        if (phase !== newPhase && age > 1000) addNotification((
-          <span>
-            {'Congratulations! Your '}
-            <b>{ plant.name }</b>
-            {' plant has entered a '}
-            <b>{ PLANT_GROWTH_PHASES[newPhase] }</b>
-            {' phase!'}
-          </span>
-        ));
+          if (phase !== newPhase && age > 1000) addNotification((
+            <span>
+              {'Congratulations! Your '}
+              <b>{ plant.name }</b>
+              {' plant has entered a '}
+              <b>{ PLANT_GROWTH_PHASES[newPhase] }</b>
+              {' phase!'}
+            </span>
+          ));
 
-        return {
-          ...plant,
-          age: newAge,
-          growthProgress: newGrowthProgress,
-          phase: newPhase
-        };
-      }
-    });
+          return {
+            ...plant,
+            age: newAge,
+            growthProgress: newGrowthProgress,
+            phase: newPhase
+          };
+        }
+      });
 
       this.setState({
         context: {
@@ -361,6 +362,25 @@ class App extends React.Component {
           ...player,
           garden: newGarden
         }
+      }
+    });
+  };
+
+  resetGame = () => {
+    const { player } = defaultContext;
+    const { context } = this.state;
+    const { actions } = context;
+    const { addNotification } = actions;
+
+    localStorage.clear();
+
+    addNotification('Game reset!');
+
+    this.setState({
+      context: {
+        ...context,
+        gameIsRunning: true,
+        player
       }
     });
   };

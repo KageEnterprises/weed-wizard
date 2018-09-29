@@ -24,6 +24,7 @@ import {
 } from '@material-ui/core';
 import {
   ChevronLeft as ChevronLeftIcon,
+  DeleteForever,
   Menu as MenuIcon,
   PauseCircleFilled,
   Save as SaveIcon
@@ -131,6 +132,7 @@ class AppDisplay extends React.Component {
 
     this.state = {
       pauseDialogOpen: false,
+      resetDialogOpen: false,
       sideDrawerOpen: false,
       welcomeDialogOpen: true
     };
@@ -152,6 +154,12 @@ class AppDisplay extends React.Component {
     this.props.context.loop.unsubscribe(this.callbackId);
   }
 
+  cancelReset = () => {
+    this.props.context.actions.startGame();
+
+    this.setState({ resetDialogOpen: false });
+  };
+
   handleDrawerOpen = () => {
     this.setState({ sideDrawerOpen: true });
   };
@@ -161,23 +169,25 @@ class AppDisplay extends React.Component {
   };
 
   handlePauseGame = () => {
-    const { context } = this.props;
-    const { actions } = context;
-    const { stopGame } = actions;
-
-    stopGame();
+    this.props.context.actions.stopGame();
 
     this.setState({
       pauseDialogOpen: true
     });
   };
 
-  handleUnpauseGame = () => {
+  handleReset = () => {
     const { context } = this.props;
     const { actions } = context;
-    const { startGame } = actions;
+    const { resetGame } = actions;
 
-    startGame();
+    this.setState({ resetDialogOpen: false }, () => {
+      resetGame();
+    });
+  };
+
+  handleUnpauseGame = () => {
+    this.props.context.actions.startGame();
 
     this.setState({
       pauseDialogOpen: false
@@ -210,6 +220,12 @@ class AppDisplay extends React.Component {
     return weed ? weed.seeds <= 0 : true;
   };
 
+  showResetDialog = () => {
+    this.props.context.actions.stopGame();
+
+    this.setState({ resetDialogOpen: true });
+  };
+
   smokeButtonIsDisabled = () => {
     const { context } = this.props;
     const { player } = context;
@@ -232,6 +248,7 @@ class AppDisplay extends React.Component {
       context } = this.props;
     const {
       pauseDialogOpen,
+      resetDialogOpen,
       sideDrawerOpen,
       welcomeDialogOpen } = this.state;
     const {
@@ -324,6 +341,14 @@ class AppDisplay extends React.Component {
                 </ListItemIcon>
                 <ListItemText primary='Save Game' />
               </ListItem>
+              <ListItem
+                button
+                onClick={ this.showResetDialog } >
+                <ListItemIcon classes={{ root: classes.listItemIconFA }}>
+                  <DeleteForever />
+                </ListItemIcon>
+                <ListItemText primary='Reset Game' />
+              </ListItem>
             </List>
           </Drawer>
           <main className={ classes.content }>
@@ -369,6 +394,20 @@ class AppDisplay extends React.Component {
           <DialogActions>
             <Button onClick={ this.handleUnpauseGame } color="primary" autoFocus>
               Unpause!
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog open={ resetDialogOpen }>
+          <DialogTitle>Are You Sure?</DialogTitle>
+          <DialogContent>
+            <DialogContentText>Do you really want to reset the game?</DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={ this.cancelReset } color="secondary">
+              Cancel!
+            </Button>
+            <Button onClick={ this.handleReset } color="primary">
+              Reset!
             </Button>
           </DialogActions>
         </Dialog>
