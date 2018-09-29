@@ -59,7 +59,7 @@ export const TIERS = [
       seed: 0.25
     },
     growthRate: 1,
-    seedDropMod: 1,
+    seedDropMod: 3,
     harvestAmount: 1,
     highness: 1,
     uom: 'oz'
