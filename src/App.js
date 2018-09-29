@@ -9,6 +9,7 @@ import { getSpellById } from './Magic/MagicUtils';
 import { getToolById } from './Tools/ToolUtils';
 import {
   BASE_SEED_DROP_RATE,
+  BASE_TIME_PER_PLANT_GROWTH_PHASE,
   COME_DOWN_RATE,
   CONVERSIONS
 } from './utils/Constants';
@@ -130,6 +131,9 @@ class App extends React.Component {
         const newAge = age + timeToAge;
         const newPhase = plantAgePhaseFilter(newAge);
 
+        let newGrowthProgress = age / BASE_TIME_PER_PLANT_GROWTH_PHASE;
+        newGrowthProgress = (newGrowthProgress - Math.floor(newGrowthProgress)) * 100;
+
         if (phase !== newPhase && age > 1000) addNotification((
           <span>
             {'Congratulations! Your '}
@@ -143,6 +147,7 @@ class App extends React.Component {
         return {
           ...plant,
           age: newAge,
+          growthProgress: newGrowthProgress,
           phase: newPhase
         };
       }
@@ -294,7 +299,8 @@ class App extends React.Component {
 
         return {
           ...weed,
-          age: 0
+          age: 0,
+          growthProgress: 0
         };
       } else {
         return PLOT;

@@ -6,6 +6,7 @@ import {
   Card,
   CardActions,
   CardContent,
+  CircularProgress,
   Grid,
   Typography
 } from '@material-ui/core';
@@ -92,6 +93,9 @@ class GardenPlot extends React.Component {
                 <Typography variant='caption'>
                   { PLANT_GROWTH_PHASES[plant.phase] }
                 </Typography>
+                <CircularProgress
+                  variant='determinate'
+                  value={ plant.growthProgress } />
               </div>
             ) }
           </CardContent>
