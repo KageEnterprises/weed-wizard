@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import NumberFormat from 'react-number-format';
 
 import {
   Card,
   CardContent,
   Checkbox,
+  Chip,
   List,
   ListItem,
   ListItemText,
@@ -16,6 +18,14 @@ import { withStyles } from '@material-ui/core/styles';
 import { contextPropTypes } from '../../AppContext';
 import { getSpellById } from '../../Magic/MagicUtils';
 import { listStyles } from '../../sharedStyles';
+
+const styles = {
+  body2: {
+    '& .right': {
+      float: 'right'
+    }
+  }
+};
 
 class MagicDisplay extends React.Component {
   static propTypes = {
@@ -55,6 +65,22 @@ class MagicDisplay extends React.Component {
           } }
           primary={ spell.name }
           secondary={ spell.description } />
+        <div>
+          <NumberFormat
+            decimalScale={ 2 }
+            displayType='text'
+            value={ spell.type === 'passive' ? spell.cost * 1000 : spell.cost }
+            suffix={ spell.type === 'passive' ? '/s' : '' }
+            renderText={ value => (
+              <Chip
+                classes={ {
+                  label: classes.chip__label,
+                  root: classes.chip__root
+                } }
+                label={ value } />
+            )}
+          />
+        </div>
       </ListItem>
     );
   };
@@ -90,15 +116,19 @@ class MagicDisplay extends React.Component {
             Spells You Know
           </Typography>
           <Typography
+            classes={{ body2: classes.body2 }}
             variant="body2">
             Passive Spells
+            <span className="right">Cost</span>
           </Typography>
           <List>
             { passiveSpellsList }
           </List>
           <Typography
+            classes={{ body2: classes.body2 }}
             variant="body2">
             Action Spells
+            <span className="right">Cost</span>
           </Typography>
           <List>
             { actionSpellsList }
@@ -109,4 +139,7 @@ class MagicDisplay extends React.Component {
   }
 }
 
-export default withStyles(listStyles)(MagicDisplay);
+export default withStyles({
+  ...listStyles,
+  ...styles
+})(MagicDisplay);
